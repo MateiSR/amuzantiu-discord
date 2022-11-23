@@ -1,0 +1,3 @@
+
+Replace classic text with embed replies (multiple commands) {f} {f}
+Find alternative for a Lavalink based music bot
