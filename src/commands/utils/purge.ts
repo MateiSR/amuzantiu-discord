@@ -1,5 +1,5 @@
 import { Command } from "../../structures/Command";
-import { ApplicationCommandOptionType, Message, PermissionFlagsBits, TextChannel } from "discord.js";
+import { ApplicationCommandOptionType, PermissionFlagsBits, TextChannel } from "discord.js";
 
 export default new Command({
     name: "purge",

@@ -1,5 +1,5 @@
 import { Command } from "../../structures/Command";
-import { ApplicationCommandOptionType, messageLink, PermissionFlagsBits } from "discord.js";
+import { ApplicationCommandOptionType, PermissionFlagsBits } from "discord.js";
 
 export default new Command({
     name: "kick",

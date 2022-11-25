@@ -2,9 +2,7 @@ import {
     ChatInputApplicationCommandData,
     CommandInteraction,
     CommandInteractionOptionResolver,
-    GuildMember,
-    Message,
-    PermissionResolvable
+    GuildMember
 } from "discord.js";
 import { ExtendedClient } from "../structures/Client";
 
