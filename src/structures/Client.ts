@@ -2,21 +2,24 @@ import {
     ApplicationCommandDataResolvable,
     Client,
     ClientEvents,
-    Collection
+    Collection,
+    GatewayIntentBits
 } from "discord.js";
 import { CommandType } from "../typings/Command";
 import glob from "glob";
 import { promisify } from "util";
 import { RegisterCommandsOptions } from "../typings/client";
 import { Event } from "./Event";
+import { PrefixCommandType } from "../typings/PrefixCommand";
 
 const globPromise = promisify(glob);
 
 export class ExtendedClient extends Client {
     commands: Collection<string, CommandType> = new Collection();
+    prefixCommands: Collection<string, PrefixCommandType> = new Collection();
 
     constructor() {
-        super({ intents: 32767 });
+        super({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildPresences, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.GuildEmojisAndStickers, GatewayIntentBits.MessageContent] });
     }
 
     start() {
@@ -33,7 +36,7 @@ export class ExtendedClient extends Client {
             console.log(`Registering commands to ${guildId}`);
         } else {
             this.application?.commands.set(commands);
-            console.log("Registering global commands");
+            console.log("Initializing global SLASH commands");
         }
     }
 
@@ -43,10 +46,14 @@ export class ExtendedClient extends Client {
         const commandFiles = await globPromise(
             `${__dirname}/../commands/*/*{.ts,.js}`
         );
+        const prefixCommandFiles = await globPromise(
+            `${__dirname}/../commands/*/*.p{.ts,.js}`
+        );
         commandFiles.forEach(async (filePath) => {
+            if (prefixCommandFiles.includes(filePath)) return;
             const command: CommandType = await this.importFile(filePath);
             if (!command.name) return;
-            console.log(command);
+            console.log(`Registering SLASH command ${command.name}`);
 
             this.commands.set(command.name, command);
             slashCommands.push(command);
@@ -58,6 +65,16 @@ export class ExtendedClient extends Client {
                 guildId: process.env.guildId
             });
         });
+
+        // Prefix commands
+        prefixCommandFiles.forEach(async (filePath) => {
+            const command: PrefixCommandType = await this.importFile(filePath);
+            if (!command.name) return;
+            console.log(`Registering PREFIX command ${command.name}`);
+
+            this.prefixCommands.set(command.name, command);
+        });
+
 
         // Event
         const eventFiles = await globPromise(

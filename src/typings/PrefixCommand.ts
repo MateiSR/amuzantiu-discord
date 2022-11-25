@@ -8,19 +8,19 @@ import {
 } from "discord.js";
 import { ExtendedClient } from "../structures/Client";
 
-export interface ExtendedInteraction extends CommandInteraction {
-    member: GuildMember;
-}
-
 interface RunOptions {
     client: ExtendedClient;
-    interaction: ExtendedInteraction;
-    args: CommandInteractionOptionResolver;
+    message: Message;
+    args: string[];
 }
 
 type RunFunction = (options: RunOptions) => any;
 
-export type CommandType = {
-    type?: "SLASH";
+export type PrefixCommandType = {
+    name: string;
+    description: string;
+    defaultMemberPermissions?: PermissionResolvable[];
+    aliases?: string[];
+    type?: "PREFIX";
     run: RunFunction;
-} & ChatInputApplicationCommandData;
+}

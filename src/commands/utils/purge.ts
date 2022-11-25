@@ -1,5 +1,5 @@
 import { Command } from "../../structures/Command";
-import { ApplicationCommandOptionType, PermissionFlagsBits } from "discord.js";
+import { ApplicationCommandOptionType, Message, PermissionFlagsBits, TextChannel } from "discord.js";
 
 export default new Command({
     name: "purge",
@@ -21,7 +21,8 @@ export default new Command({
         });
 
         try {
-        await interaction.channel.bulkDelete(messages, true).then(async () => {
+        const channel = interaction.channel as TextChannel;
+        await channel.bulkDelete(messages, true).then(async () => {
             await interaction.channel.send(`✅ **Succesfully deleted messages** *newer than 2 weeks*`).then(m => setTimeout(() => m.delete(), 2500));
         }); } catch (error) {
             await interaction.channel.send(`You cannot delete messages that are older than **14 days old**.`);
