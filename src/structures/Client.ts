@@ -11,19 +11,31 @@ import { promisify } from "util";
 import { RegisterCommandsOptions } from "../typings/client";
 import { Event } from "./Event";
 import { PrefixCommandType } from "../typings/PrefixCommand";
+import { Shoukaku, Connectors } from "shoukaku";
+import ShoukakuHandler from "./music/ShoukakuHandler";
+import Logger from "../handlers/logger";
+import Util from "./Utilities";
+import MusicManager from "./music/MusicManager";
 
 const globPromise = promisify(glob);
 
 export class ExtendedClient extends Client {
     commands: Collection<string, CommandType> = new Collection();
     prefixCommands: Collection<string, PrefixCommandType> = new Collection();
+    shoukaku: Shoukaku;
+    logger: Logger;
+    environment: string = process.env.environment || "dev";
+    manager: MusicManager = new MusicManager();
+    util: Util = new Util();
 
     constructor() {
         super({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildPresences, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.GuildEmojisAndStickers, GatewayIntentBits.MessageContent] });
     }
 
     start() {
+        this.loadHandlers();
         this.registerModules();
+        this.loadMusicManager();
         this.login(process.env.botToken);
     }
     async importFile(filePath: string) {
@@ -33,10 +45,11 @@ export class ExtendedClient extends Client {
     async registerCommands({ commands, guildId }: RegisterCommandsOptions) {
         if (guildId) {
             this.guilds.cache.get(guildId)?.commands.set(commands);
-            console.log(`Registering commands to ${guildId}`);
+            this.logger.info(`Registering commands to ${guildId}`);
         } else {
             this.application?.commands.set(commands);
-            console.log("Initializing global SLASH commands");
+            this.logger.warn("No guildId provided, registering commands globally");
+            this.logger.info("Initializing global SLASH commands");
         }
     }
 
@@ -53,7 +66,7 @@ export class ExtendedClient extends Client {
             if (prefixCommandFiles.includes(filePath)) return;
             const command: CommandType = await this.importFile(filePath);
             if (!command.name) return;
-            console.log(`Registering SLASH command ${command.name}`);
+            this.logger.log(`Registering SLASH command: ${command.name}`);
 
             this.commands.set(command.name, command);
             slashCommands.push(command);
@@ -67,10 +80,11 @@ export class ExtendedClient extends Client {
         });
 
         // Prefix commands
+
         prefixCommandFiles.forEach(async (filePath) => {
             const command: PrefixCommandType = await this.importFile(filePath);
             if (!command.name) return;
-            console.log(`Registering PREFIX command ${command.name}`);
+            this.logger.log(`Registering PREFIX command: ${command.name}`);
 
             this.prefixCommands.set(command.name, command);
         });
@@ -86,5 +100,16 @@ export class ExtendedClient extends Client {
             );
             this.on(event.event, event.run);
         });
+    }
+
+    async loadHandlers() {
+        this.logger = new Logger();
+        this.logger.info("Initializing handlers");
+    }
+
+    async loadMusicManager() {
+        this.logger.info("Initializing music manager");
+        const shoukaku = new ShoukakuHandler(this);
+        this.shoukaku = shoukaku;
     }
 }

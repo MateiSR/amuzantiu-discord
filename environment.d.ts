@@ -5,6 +5,8 @@ declare global {
             guildId?: string;
             environment: "dev" | "prod" | "debug";
             prefix?: string;
+            LavalinkURL: string;
+            LavalinkPassword: string;
         }
     }
 }
