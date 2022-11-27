@@ -31,7 +31,13 @@ export default new Event("interactionCreate", async (interaction) => {
                     interaction: interaction as ExtendedInteraction
                 });
                 client.cooldowns.handleCooldown(command.name, interaction.user.id, command.cooldown);
+                return;
             }
+            command.run({
+                args: interaction.options as CommandInteractionOptionResolver,
+                client,
+                interaction: interaction as ExtendedInteraction
+            });
         } catch (error) {
             client.logger.error("An error occured while executing a command", error);
             interaction.followUp("**An error has occured while running this command**");

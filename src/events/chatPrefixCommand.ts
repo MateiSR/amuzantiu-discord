@@ -47,6 +47,8 @@ export default new Event("messageCreate", async (message) => {
             }
             await command.run({ client, message, args });
             client.cooldowns.handleCooldown(command.name, message.author.id, command.cooldown);
+            return;
         }
+        await command.run({ client, message, args });
     } catch (error) { console.error(error) };
 });
