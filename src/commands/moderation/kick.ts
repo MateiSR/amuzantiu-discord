@@ -1,5 +1,5 @@
 import { Command } from "../../structures/Command";
-import { ApplicationCommandOptionType, PermissionFlagsBits } from "discord.js";
+import { ApplicationCommandOptionType, Colors, PermissionFlagsBits } from "discord.js";
 
 export default new Command({
     name: "kick",
@@ -18,10 +18,12 @@ export default new Command({
         await client.guilds.fetch(interaction.guild.id).then(guild => guild.members.fetch(member).then(member => {
             if (member && member.kickable && member.user.id != client.user.id && member.user.id != interaction.user.id && interaction.member.roles.highest.position > member.roles.highest.position) {
                 member.kick();
-                interaction.followUp(`Kicking **${member}..**`);
+                // send embed reply
+                return interaction.followUp({ embeds: [client.util.embed("Kick", Colors.Green, `Successfully kicked ${member.user.tag}`)] });
             }
             else {
-                interaction.followUp("I **can't** kick **that** member 😔");
+                // send embed reply
+                return interaction.followUp({ embeds: [client.util.embed("Kick", Colors.Red, `Failed to kick ${member.user.tag}`)] });
             }
         }))
 

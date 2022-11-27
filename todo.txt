@@ -1,5 +1,6 @@
 
 Replace classic text with embed replies (multiple commands) {f} {f}
 Find alternative for a Lavalink based music bot {cm:2022-11-27}
-Bot activity (version, prefix, playing etc)
+Bot activity (version, prefix, playing etc) {cm:2022-11-27}
 Add command cooldowns
+Add info command
