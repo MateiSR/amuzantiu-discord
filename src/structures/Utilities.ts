@@ -17,9 +17,9 @@ export default class Util {
         if (millis == 9223372036854776000) return "LIVE";
         // format ms
         let sec = Math.floor(millis / 1000);
-        let hrs = Math.floor(sec / 3600);
+        const hrs = Math.floor(sec / 3600);
         sec -= hrs * 3600;
-        let min = Math.floor(sec / 60);
+        const min = Math.floor(sec / 60);
         sec -= min * 60;
 
         let secstr = '' + sec;
