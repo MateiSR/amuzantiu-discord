@@ -35,7 +35,7 @@ export default class MusicDispatcher {
     onTrackStart = async () => {
         // Send embed corresponding to the track
         const channel = this.guild.channels.cache.get(this.textChannelId) as TextChannel;
-        // get member name
+        // Get GuildMember from track author
         const requester = await this.guild.members.fetch(this.current.info.author);
         await channel.send({embeds: [client.util.embed("🎵   Now playing", Colors.Blue, `[${this.current.info.title}](${this.current.info.uri})`)
             .setThumbnail(Youtube.thumb(this.current.info.uri, "small"))
@@ -51,7 +51,7 @@ export default class MusicDispatcher {
             },
             {
                 name: "Requested by",
-                value: requester.user.tag,
+                value: requester.toString(),
                 inline: true
             }])]});
             this.client.logger.debug(`Now playing ${this.current.info.title} in ${this.guild.name} (${this.guild.id}) --- Requested by ${requester.user.tag}`);
