@@ -1,7 +1,7 @@
 import { ExtendedClient } from '../Client';
 import { DispatcherOptions } from '../../typings/music/DispatcherOptions';
 import { client } from '../..';
-import { Colors, Guild, GuildBasedChannel, TextChannel } from 'discord.js';
+import { Colors, DiscordAPIError, Guild, GuildBasedChannel, TextChannel } from 'discord.js';
 import { Player, Track } from 'shoukaku';
 import { Youtube } from '../../handlers/youtube';
 
@@ -105,11 +105,17 @@ export default class MusicDispatcher {
 
     async skip(skipTo = 1) {
         if (!this.player) return;
-        if (skipTo > this.queue.length) return;
+        if (skipTo > this.queue.length && !this.current) return;
+        if (this.queue.length == 0 && this.current || skipTo == this.queue.length + 1) {
+            this.stop();
+            this.destroy();
+            return;
+        } else
         if (skipTo > 1) {
             this.queue = this.queue.slice(skipTo - 1);
+            this.player.stopTrack();
         }
-        //this.player.stopTrack();
+        if (this.player.paused) this.resume();
     }
 
     async stop() {
@@ -128,6 +134,7 @@ export default class MusicDispatcher {
 
     destroy() {
         this.player.clean();
+        this.player.connection.disconnect();
         this.client.manager.delete(this.guild.id);
     }
 
