@@ -2,8 +2,8 @@ import { Command } from "../../structures/Command";
 import { ApplicationCommandOptionType, Colors, PermissionFlagsBits } from "discord.js";
 
 export default new Command({
-    name: "kick",
-    description: "kicks member from guild",
+    name: "ban",
+    description: "bans member from guild",
     defaultMemberPermissions: [PermissionFlagsBits.BanMembers],
     options: [{
         name: "member",
