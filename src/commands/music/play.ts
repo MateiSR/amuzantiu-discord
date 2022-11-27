@@ -25,7 +25,7 @@ export default new Command({
         // fetch bot guild member
         const guild = interaction.guild as Guild;
         const bot = await guild.members.fetch(client.user.id);
-        // check if bot is in a voice channel
+        // check if member is in a voice channel
         if (!interaction.member.voice.channelId) return await interaction.followUp({ embeds: [client.util.embed("You are not in a voice channel", Colors.Red, "Please join a voice channel and try again")] });
         // check if bot is in the same voice channel as the user
         if (bot.voice.channelId && interaction.member.voice.channelId !== bot.voice.channelId) return await interaction.followUp({ embeds: [client.util.embed("You are not in my voice channel", Colors.Red, "Please join my voice channel and try again")] });
