@@ -115,6 +115,7 @@ export default class MusicDispatcher {
             this.queue = this.queue.slice(skipTo - 1);
             this.player.stopTrack();
         }
+        else this.player.stopTrack();
         if (this.player.paused) this.resume();
     }
 
