@@ -7,5 +7,6 @@ export type DispatcherOptions = {
     guildId: string;
     guild?: Guild;
     textChannelId?: string;
+    voiceChannelId?: string;
     player: Player;
 }

@@ -38,6 +38,7 @@ export default class MusicManager extends Collection<string, MusicDispatcher> { 
             guildId: options.guildId,
             guild: options.guild,
             textChannelId: options.TextChannelId,
+            voiceChannelId: options.VoiceChannelId,
             player: player
         });
 

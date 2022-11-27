@@ -13,6 +13,7 @@ export default class MusicDispatcher {
     guildId: string;
     guild: Guild;
     textChannelId: string | undefined;
+    voiceChannelId: string | undefined;
     current: Track = null;
     previous: Track = null;
     end: boolean = false;
@@ -23,6 +24,7 @@ export default class MusicDispatcher {
         this.guild = options.guild || this.client.guilds.cache.get(options.guildId);
         this.guildId = options.guild.id;
         this.textChannelId = options.textChannelId;
+        this.voiceChannelId = options.voiceChannelId;
 
 
         // Events
@@ -90,6 +92,39 @@ export default class MusicDispatcher {
         this.current = this.queue.shift();
         this.player.playTrack({ track: this.current.track });
     }
+
+    async pause() {
+        if (!this.player) return;
+        this.player.setPaused(true);
+    }
+
+    async resume() {
+        if (!this.player) return;
+        this.player.setPaused(false);
+    }
+
+    async skip(skipTo = 1) {
+        if (!this.player) return;
+        if (skipTo > this.queue.length) return;
+        if (skipTo > 1) {
+            this.queue = this.queue.slice(skipTo - 1);
+        }
+        //this.player.stopTrack();
+    }
+
+    async stop() {
+        if (!this.player) return;
+        this.queue = [];
+        this.loop = "none";
+        this.player.stopTrack();
+    }
+
+    /* to be done
+    async shuffle() {
+        if (!this.player) return;
+        this.queue = client.util.shuffle(this.queue);
+    }
+    */
 
     destroy() {
         this.player.clean();
