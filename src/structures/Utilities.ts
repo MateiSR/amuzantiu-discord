@@ -63,4 +63,8 @@ export default class Util {
 
     public randomInt = (max, min) => Math.round(Math.random() * (max - min)) + min;
 
+    public randomArray(array: any[]) {
+        return array[Math.floor(Math.random() * array.length)];
+    }
+
 }
