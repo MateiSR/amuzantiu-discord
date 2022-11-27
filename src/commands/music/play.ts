@@ -1,4 +1,5 @@
 import { ApplicationCommandOptionType, Colors, Guild } from "discord.js";
+import { LavalinkResponse } from "shoukaku";
 import { Command } from "../../structures/Command";
 
 // check if query is a url
@@ -35,7 +36,8 @@ export default new Command({
         const dispatcher = await client.manager.get(interaction.guild.id);
 
         if (isURL(query)) {
-            const result = await node.rest.resolve(query);
+
+            const result = await node.rest.resolve(query) as LavalinkResponse | null;
             if (!result || result["loadType"] == "NO_MATCHES") return await interaction.followUp({ embeds: [client.util.embed("No results found", Colors.Red, "Please try again with a different query")] });
             const track = result.tracks.shift();
             track.info.author = interaction.user.id;
@@ -73,7 +75,7 @@ export default new Command({
 
         }
 
-        const result = await node.rest.resolve(`ytsearch:${query}`);
+        const result = await node.rest.resolve(`ytsearch:${query}`) as LavalinkResponse | null;
         if (!result|| result["loadType"] == "NO_MATCHES") return await interaction.followUp({ embeds: [client.util.embed("No results found", Colors.Red, "Please try again with a different query")] });
         const track = result.tracks.shift();
         track.info.author = interaction.user.id;
