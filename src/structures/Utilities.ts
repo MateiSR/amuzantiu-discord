@@ -50,5 +50,17 @@ export default class Util {
         return duration.split(':').map(Number).reduce((acc, curr) => curr + acc * 60) * 1000;
     }
 
+    // chunk array
+    public chunk = (array: any[], size: number) => {
+        const chunked_arr = [];
+        let index = 0;
+        while (index < array.length) {
+            chunked_arr.push(array.slice(index, size + index));
+            index += size;
+        }
+        return chunked_arr;
+    }
+
+
 
 }
