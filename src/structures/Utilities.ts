@@ -61,6 +61,6 @@ export default class Util {
         return chunked_arr;
     }
 
-
+    public randomInt = (max, min) => Math.round(Math.random() * (max - min)) + min;
 
 }
