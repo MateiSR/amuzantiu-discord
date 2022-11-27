@@ -1,4 +1,5 @@
 import {
+    ActivityType,
     ApplicationCommandDataResolvable,
     Client,
     ClientEvents,
@@ -16,11 +17,14 @@ import ShoukakuHandler from "./music/ShoukakuHandler";
 import Logger from "../handlers/logger";
 import Util from "./Utilities";
 import MusicManager from "./music/MusicManager";
+import { version } from '../../package.json';
+import CooldownManager from './CooldownManager';
 
 const globPromise = promisify(glob);
 
 export class ExtendedClient extends Client {
     commands: Collection<string, CommandType> = new Collection();
+    cooldowns: CooldownManager = new CooldownManager();
     prefixCommands: Collection<string, PrefixCommandType> = new Collection();
     shoukaku: Shoukaku;
     logger: Logger;
@@ -102,6 +106,11 @@ export class ExtendedClient extends Client {
         });
     }
 
+    // Set bot activity
+    async setActivity() {
+        await this.user?.setPresence({activities: [{name: `v${version} | ${process.env.prefix}help`, type: ActivityType.Playing}], status: "online"});
+    }
+
     async loadHandlers() {
         this.logger = new Logger();
         this.logger.info("Initializing handlers");
@@ -112,4 +121,5 @@ export class ExtendedClient extends Client {
         const shoukaku = new ShoukakuHandler(this);
         this.shoukaku = shoukaku;
     }
+
 }
