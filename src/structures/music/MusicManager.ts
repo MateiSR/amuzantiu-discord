@@ -19,7 +19,7 @@ export default class MusicManager extends Collection<string, MusicDispatcher> { 
         if (existingDispatcher) {
             existingDispatcher.queue.push(options.track);
             if (!existingDispatcher.current) await existingDispatcher.play();
-           return;
+            return;
         }
 
         // If the dispatcher has not been initalized
@@ -28,8 +28,9 @@ export default class MusicManager extends Collection<string, MusicDispatcher> { 
             guildId: options.guildId,
             shardId: 0,
             channelId: options.VoiceChannelId,
-            deaf: true});
-        //this.client.logger.debug(`New music connection to ${options.guildId}`);
+            deaf: true
+        });
+        this.client.logger.debug(`New music connection to ${options.guildId}`);
 
         const dispatcher = new MusicDispatcher({
             client: this.client,
@@ -41,7 +42,7 @@ export default class MusicManager extends Collection<string, MusicDispatcher> { 
 
         dispatcher.queue.push(options.track);
         this.set(options.guildId, dispatcher);
-        //this.client.logger.debug(`New music dispatcher to ${options.guildId}`);
+        this.client.logger.debug(`New music dispatcher to ${options.guildId}`);
         return dispatcher;
 
     }

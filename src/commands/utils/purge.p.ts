@@ -5,7 +5,7 @@ export default new PrefixCommand({
     name: "purge",
     description: "purges last <1-100> messages",
     defaultMemberPermissions: [PermissionFlagsBits.ManageMessages],
-    run: async({client, message, args}) => {
+    run: async ({ client, message, args }) => {
 
         if (!args[0]) return;
         const amount: number = parseInt(args[0]);
@@ -14,10 +14,11 @@ export default new PrefixCommand({
         });
 
         try {
-        const channel = message.channel as TextChannel;
-        await channel.bulkDelete(messages, true).then(async () => {
-            return await message.channel.send(`✅ **Succesfully deleted messages** *newer than 2 weeks*`).then(m => setTimeout(() => m.delete(), 2500));
-        }); } catch (error) {
+            const channel = message.channel as TextChannel;
+            await channel.bulkDelete(messages, true).then(async () => {
+                return await message.channel.send(`✅ **Succesfully deleted messages** *newer than 2 weeks*`).then(m => setTimeout(() => m.delete(), 2500));
+            });
+        } catch (error) {
             return await message.channel.send(`You cannot delete messages that are older than **14 days old**.`);
         }
 

@@ -25,9 +25,9 @@ export default new Command({
         const guild = interaction.guild as Guild;
         const bot = await guild.members.fetch(client.user.id);
         // check if bot is in a voice channel
-        if (!interaction.member.voice.channelId) return await interaction.followUp({embeds: [client.util.embed("You are not in a voice channel", Colors.Red, "Please join a voice channel and try again")]});
+        if (!interaction.member.voice.channelId) return await interaction.followUp({ embeds: [client.util.embed("You are not in a voice channel", Colors.Red, "Please join a voice channel and try again")] });
         // check if bot is in the same voice channel as the user
-        if (bot.voice.channelId && interaction.member.voice.channelId !== bot.voice.channelId) return await interaction.followUp({embeds: [client.util.embed("You are not in my voice channel", Colors.Red, "Please join my voice channel and try again")]});
+        if (bot.voice.channelId && interaction.member.voice.channelId !== bot.voice.channelId) return await interaction.followUp({ embeds: [client.util.embed("You are not in my voice channel", Colors.Red, "Please join my voice channel and try again")] });
         // check if query is a url
         const query = args.getString("query");
         const node = client.shoukaku.getNode();
@@ -36,7 +36,7 @@ export default new Command({
 
         if (isURL(query)) {
             const result = await node.rest.resolve(query);
-            if (!result) return await interaction.followUp({embeds: [client.util.embed("No results found", Colors.Red, "Please try again with a different query")]});
+            if (!result) return await interaction.followUp({ embeds: [client.util.embed("No results found", Colors.Red, "Please try again with a different query")] });
             const track = result.tracks.shift();
             track.info.author = interaction.user.id;
             const isPlaylist = result.loadType === "PLAYLIST_LOADED";
@@ -60,12 +60,13 @@ export default new Command({
                         VoiceChannelId: interaction.member.voice.channelId,
                         TextChannelId: interaction.channel.id,
                         track: track,
-                        member: interaction.member});
+                        member: interaction.member
+                    });
 
                 }
             }
 
-            await interaction.followUp({embeds: [isPlaylist ? client.util.embed("Playlist added to queue", Colors.Green, `Added ${result.tracks.length + 1} tracks to the queue`) : client.util.embed("Track added to queue", Colors.Green, `Added ${track.info.title} to the queue`)]});
+            await interaction.followUp({ embeds: [isPlaylist ? client.util.embed("Playlist added to queue", Colors.Green, `Added ${result.tracks.length + 1} tracks to the queue`) : client.util.embed("Track added to queue", Colors.Green, `Added ${track.info.title} to the queue`)] });
 
             res?.play();
             return;

@@ -13,7 +13,7 @@ export default new Command({
         max_value: 100,
         required: true
     }],
-    run: async({client, interaction, args}) => {
+    run: async ({ client, interaction, args }) => {
 
         const amount: number = args.getInteger("amount");
         const messages = await interaction.channel.messages.fetch({
@@ -21,12 +21,13 @@ export default new Command({
         });
 
         try {
-        const channel = interaction.channel as TextChannel;
-        await channel.bulkDelete(messages, true).then(async () => {
-            await interaction.channel.send(`✅ **Succesfully deleted messages** *newer than 2 weeks*`).then(m => setTimeout(() => m.delete(), 2500));
-        }); } catch (error) {
+            const channel = interaction.channel as TextChannel;
+            await channel.bulkDelete(messages, true).then(async () => {
+                await interaction.channel.send(`✅ **Succesfully deleted messages** *newer than 2 weeks*`).then(m => setTimeout(() => m.delete(), 2500));
+            });
+        } catch (error) {
             await interaction.channel.send(`You cannot delete messages that are older than **14 days old**.`);
-            try {await interaction.deferReply();}catch(e){};
+            try { await interaction.deferReply(); } catch (e) { };
         }
 
     }

@@ -8,7 +8,7 @@ export default class Util {
             .setDescription(description)
             .setColor(color)
             .setTimestamp(new Date())
-            .setFooter({"text": "Amuzantiu | Made with ❤️ by github.com/MateiSR"});
+            .setFooter({ "text": "Amuzantiu | Made with ❤️ by github.com/MateiSR" });
     }
 
     public formatTime = (millis: number) => {

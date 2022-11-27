@@ -11,13 +11,13 @@ export default new Event("interactionCreate", async (interaction) => {
             return interaction.followUp("**Command does not exist**");
 
         try {
-        command.run({
-            args: interaction.options as CommandInteractionOptionResolver,
-            client,
-            interaction: interaction as ExtendedInteraction
-        });
-    } catch (error) {
-        interaction.followUp("**An error has occured while running this command");
-    }
+            command.run({
+                args: interaction.options as CommandInteractionOptionResolver,
+                client,
+                interaction: interaction as ExtendedInteraction
+            });
+        } catch (error) {
+            interaction.followUp("**An error has occured while running this command");
+        }
     }
 });

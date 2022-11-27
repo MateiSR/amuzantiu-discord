@@ -33,6 +33,6 @@ export default new Event("messageCreate", async (message) => {
 
     // Run command
     try {
-        await command.run({client, message, args});
-    } catch (error) {console.error(error)};
+        await command.run({ client, message, args });
+    } catch (error) { console.error(error) };
 });

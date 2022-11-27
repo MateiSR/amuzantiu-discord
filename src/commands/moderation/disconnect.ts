@@ -11,11 +11,11 @@ export default new Command({
         type: ApplicationCommandOptionType.User,
         required: true
     }],
-    run: async({client, interaction, args}) => {
+    run: async ({ client, interaction, args }) => {
 
         const member = args.getUser("member");
 
-        await client.guilds.fetch(interaction.guild.id).then(guild => guild.members.fetch(member).then (member => {
+        await client.guilds.fetch(interaction.guild.id).then(guild => guild.members.fetch(member).then(member => {
             if (!member.voice.channelId) interaction.followUp(`**${member}** is **not in a voice channel** 😔`);
             else {
                 member.voice.disconnect();

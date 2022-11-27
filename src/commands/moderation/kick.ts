@@ -11,14 +11,14 @@ export default new Command({
         type: ApplicationCommandOptionType.User,
         required: true
     }],
-    run: async({client, interaction, args}) => {
+    run: async ({ client, interaction, args }) => {
 
         const member = args.getUser("member");
 
-        await client.guilds.fetch(interaction.guild.id).then(guild => guild.members.fetch(member).then (member => {
+        await client.guilds.fetch(interaction.guild.id).then(guild => guild.members.fetch(member).then(member => {
             if (member && member.kickable && member.user.id != client.user.id && member.user.id != interaction.user.id && interaction.member.roles.highest.position > member.roles.highest.position) {
-            member.kick();
-            interaction.followUp(`Kicking **${member}..**`);
+                member.kick();
+                interaction.followUp(`Kicking **${member}..**`);
             }
             else {
                 interaction.followUp("I **can't** kick **that** member 😔");

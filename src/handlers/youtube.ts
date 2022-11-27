@@ -7,9 +7,9 @@ export var Youtube = (function () {
         if (url === null) {
             return '';
         }
-        size    = (size === null) ? 'big' : size;
+        size = (size === null) ? 'big' : size;
         results = url.match('[\\?&]v=([^&#]*)');
-        video   = (results === null) ? url : results[1];
+        video = (results === null) ? url : results[1];
 
         if (size === 'small') {
             return 'http://img.youtube.com/vi/' + video + '/2.jpg';
