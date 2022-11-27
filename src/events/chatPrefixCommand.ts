@@ -1,6 +1,7 @@
 import { TextChannel } from "discord.js";
 import { client } from "..";
 import { Event } from "../structures/Event";
+import { Colors } from 'discord.js';
 
 require("dotenv").config();
 
@@ -33,6 +34,19 @@ export default new Event("messageCreate", async (message) => {
 
     // Run command
     try {
-        await command.run({ client, message, args });
+        // Check command cooldown
+        if (command.cooldown) {
+            const userCooldown = client.cooldowns.checkCooldown(command.name, message.author.id);
+            if (userCooldown) {
+                const currentTime = Date.now();
+                const expirationTime = userCooldown + command.cooldown;
+                const humanizedCooldown = client.util.formatTime(expirationTime - currentTime, true);
+                if (currentTime < expirationTime) {
+                    return message.reply({embeds: [client.util.embed("This command is on cooldown", Colors.Red, `Please wait **${humanizedCooldown}** before using this command again`)]});
+                }
+            }
+            await command.run({ client, message, args });
+            client.cooldowns.handleCooldown(command.name, message.author.id, command.cooldown);
+        }
     } catch (error) { console.error(error) };
 });

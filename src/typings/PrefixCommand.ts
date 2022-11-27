@@ -18,5 +18,6 @@ export type PrefixCommandType = {
     defaultMemberPermissions?: PermissionResolvable[];
     aliases?: string[];
     type?: "PREFIX";
+    cooldown?: number;
     run: RunFunction;
 }
