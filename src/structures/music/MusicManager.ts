@@ -13,6 +13,7 @@ export default class MusicManager extends Collection<string, MusicDispatcher> { 
     }
 
     async handleDispatcher(options: ManagerOptions) {
+        client.logger.debug(`Handling dispatcher for ${options.guild.name} (${options.guild.id})`);
         const existingDispatcher = this.get(options.guildId);
 
         // If the dispatcher has been already initalized
@@ -30,10 +31,10 @@ export default class MusicManager extends Collection<string, MusicDispatcher> { 
             channelId: options.VoiceChannelId,
             deaf: true
         });
-        this.client.logger.debug(`New music connection to ${options.guildId}`);
+        client.logger.debug(`New music connection to ${options.guild.name} (${options.guild.id})`);
 
         const dispatcher = new MusicDispatcher({
-            client: this.client,
+            client: client,
             guildId: options.guildId,
             guild: options.guild,
             textChannelId: options.TextChannelId,
@@ -42,7 +43,7 @@ export default class MusicManager extends Collection<string, MusicDispatcher> { 
 
         dispatcher.queue.push(options.track);
         this.set(options.guildId, dispatcher);
-        this.client.logger.debug(`New music dispatcher to ${options.guildId}`);
+        client.logger.debug(`New music dispatcher to ${options.guild.name} (${options.guild.id})`);
         return dispatcher;
 
     }

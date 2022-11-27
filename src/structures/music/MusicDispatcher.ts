@@ -7,11 +7,6 @@ import { Youtube } from '../../handlers/youtube';
 
 export default class MusicDispatcher {
 
-    //queue = [];
-    // save dispatchers in a collection
-    // dispatchers = new Collection<string, MusicDispatcher>();
-    //
-
     client: ExtendedClient = client;
     player: Player;
     queue: Track[] = new Array<Track>;
@@ -59,6 +54,7 @@ export default class MusicDispatcher {
                 value: requester.user.tag,
                 inline: true
             }])]});
+            this.client.logger.debug(`Now playing ${this.current.info.title} in ${this.guild.name} (${this.guild.id}) --- Requested by ${requester.user.tag}`);
     }
 
     onTrackEnd = async () => {
@@ -79,7 +75,10 @@ export default class MusicDispatcher {
     }
 
     onTrackException = async () => {
-        console.log("Track exception");
+        const channel = this.guild.channels.cache.get(this.textChannelId) as TextChannel;
+        // send embeds corresponding to the exception, and the track
+        await channel.send({embeds: [client.util.embed("⚠️   Exception encountered while trying to play track", Colors.Red, `[${this.current.info.title}](${this.current.info.uri})`)]});
+        this.client.logger.debug(`Exception encountered while trying to play track ${this.current.info.title}`);
     }
 
     get exists() {
