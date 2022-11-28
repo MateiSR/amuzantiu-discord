@@ -31,10 +31,13 @@ export default new PrefixCommand({
             const chunked = client.util.chunk(queue, 10);
             const embeds = new Array<EmbedBuilder>();
 
+            const infoStart: string = "___Now playing:___ " + `[${dispatcher.current.info.title}](${dispatcher.current.info.uri})` + " " + client.util.formatTime(dispatcher.player.position) + " / " + client.util.formatTime(dispatcher.current.info.length) + ` [${message.guild.members.cache.get(dispatcher.current.info.author) as GuildMember}]`;
+            const infoFooter: string = `***${dispatcher.queue.length} songs in queue | ${client.util.formatTime(dispatcher.totalDuration, true)} total length***\n***Loop***: ${dispatcher.loop}`;
+
             var page = 0;
             for (const chunk of chunked) {
                 page++;
-                const embed = client.util.embed(`Music Queue - ${guild.name}`, Colors.Purple, `${chunk.join('\n')}`).setFooter({"text": `Page ${page}/${chunked.length}`});
+                const embed = client.util.embed(`Music Queue - ${guild.name}`, Colors.Blurple, `${infoStart}\n\n${chunk.join('\n')}\n\n${infoFooter}`);
                 embeds.push(embed);
             }
 

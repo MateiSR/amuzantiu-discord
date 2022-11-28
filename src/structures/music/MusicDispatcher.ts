@@ -17,7 +17,7 @@ export default class MusicDispatcher {
     current: Track = null;
     previous: Track = null;
     end: boolean = false;
-    loop: string = "queue" || "track" || "none";
+    loop: string = "none" || "track" || "queue";
 
     constructor(options: DispatcherOptions) {
         this.player = options.player;
@@ -88,6 +88,15 @@ export default class MusicDispatcher {
 
     async switchChannel(channelId: string) {
         this.voiceChannelId = channelId;
+    }
+
+    // get queue total duration
+    get totalDuration() {
+        let total = 0;
+        this.queue.forEach(track => {
+            total += track.info.length;
+        });
+        return total;
     }
 
     async play() {
