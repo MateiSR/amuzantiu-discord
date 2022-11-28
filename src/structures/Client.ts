@@ -12,7 +12,7 @@ import { promisify } from "util";
 import { RegisterCommandsOptions } from "../typings/client";
 import { Event } from "./Event";
 import { PrefixCommandType } from "../typings/PrefixCommand";
-import { Shoukaku, Connectors } from "shoukaku";
+import { Shoukaku } from "shoukaku";
 import ShoukakuHandler from "./music/ShoukakuHandler";
 import Logger from "../handlers/logger";
 import Util from "./Utilities";

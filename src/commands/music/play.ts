@@ -33,7 +33,10 @@ export default new Command({
         const query = args.getString("query");
         const node = client.shoukaku.getNode();
 
-        const dispatcher = await client.manager.get(interaction.guild.id);
+        /*
+        /* removed due to redundancy
+        /* const dispatcher = await client.manager.get(interaction.guild.id);
+        */
 
         if (isURL(query)) {
 

@@ -47,7 +47,7 @@ export default new Command({
             }
 
             // send message for selected page
-            const msg = await interaction.followUp({ embeds: [embeds[selectedPage - 1]] });
+            await interaction.followUp({ embeds: [embeds[selectedPage - 1]] });
 
         }  catch (error) {
             console.error(error);

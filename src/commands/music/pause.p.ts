@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, Colors, Guild } from "discord.js";
+import { Colors } from "discord.js";
 import { PrefixCommand } from '../../structures/PrefixCommand';
 
 export default new PrefixCommand({

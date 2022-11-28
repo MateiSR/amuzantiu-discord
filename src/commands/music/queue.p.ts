@@ -1,4 +1,4 @@
-import { Guild, Colors, EmbedBuilder, GuildMember, ApplicationCommandOptionType } from 'discord.js';
+import { Guild, Colors, EmbedBuilder, GuildMember } from 'discord.js';
 import { PrefixCommand } from "../../structures/PrefixCommand";
 
 export default new PrefixCommand({
@@ -39,7 +39,7 @@ export default new PrefixCommand({
             }
 
             // send message for selected page
-            const msg = await message.reply({ embeds: [embeds[selectedPage - 1]] });
+            await message.reply({ embeds: [embeds[selectedPage - 1]] });
 
         }  catch (error) {
             console.error(error);

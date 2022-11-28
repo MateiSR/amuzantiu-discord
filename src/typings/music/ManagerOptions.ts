@@ -1,5 +1,5 @@
 import { Guild, GuildMember } from 'discord.js';
-import { Player, Track } from 'shoukaku';
+import { Track } from 'shoukaku';
 import { ExtendedClient } from '../../structures/Client';
 
 export type ManagerOptions = {

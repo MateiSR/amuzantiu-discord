@@ -31,7 +31,10 @@ export default new PrefixCommand({
         const queryURL = args[0];
         const node = client.shoukaku.getNode();
 
-        const dispatcher = await client.manager.get(message.guild.id);
+        /*
+        /* removed due to redundancy
+        /* const dispatcher = await client.manager.get(interaction.guild.id);
+        */
 
         if (isURL(queryURL)) {
 

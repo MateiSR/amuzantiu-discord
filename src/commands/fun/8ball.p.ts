@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, Colors } from "discord.js";
+import { Colors } from "discord.js";
 import { PrefixCommand } from '../../structures/PrefixCommand';
 
 const answers_yes = [

@@ -1,4 +1,4 @@
-import { Guild, GuildMember } from 'discord.js';
+import { Guild } from 'discord.js';
 import { Player } from 'shoukaku';
 import { ExtendedClient } from '../../structures/Client';
 
