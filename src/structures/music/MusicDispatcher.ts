@@ -126,12 +126,10 @@ export default class MusicDispatcher {
         this.destroy();
     }
 
-    /* to be done
     async shuffle() {
         if (!this.player) return;
-        this.queue = client.util.shuffle(this.queue);
+        this.queue = client.util.shuffleArray(this.queue);
     }
-    */
 
     destroy() {
         this.player.clean();
