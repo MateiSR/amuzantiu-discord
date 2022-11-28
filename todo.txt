@@ -1,6 +1,13 @@
 
-Replace classic text with embed replies (multiple commands) {f} {f}
-Find alternative for a Lavalink based music bot {cm:2022-11-27}
-Bot activity (version, prefix, playing etc) {cm:2022-11-27}
-Add command cooldowns {cm:2022-11-28}
-Add info command
+Replace classic text with embed replies (multiple commands) {f} {f} {cm:2022-11-28} {h}
+Find alternative for a Lavalink based music bot {cm:2022-11-27} {h}
+Bot activity (version, prefix, playing etc) {cm:2022-11-27} {h}
+Add command cooldowns {cm:2022-11-28} {h}
+Add info command {cm:2022-11-28} {h}
+Previous command {cm:2022-11-28}
+Music filter command
+Lyrics command (genius / musixmatch)
+Radio command (maybe?)
+Music stream handling
+Volume command
+Update queue command (bottom info)

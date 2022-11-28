@@ -93,6 +93,13 @@ export default class MusicDispatcher {
         this.player.playTrack({ track: this.current.track });
     }
 
+    async playPrevious() {
+        if (!this.player) return;
+        if (!this.previous) return;
+        this.queue.unshift(this.previous);
+        this.player.stopTrack();
+    }
+
     async pause() {
         if (!this.player) return;
         this.player.setPaused(true);

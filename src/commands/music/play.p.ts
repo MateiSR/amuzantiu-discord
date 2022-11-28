@@ -43,6 +43,7 @@ export default new PrefixCommand({
 
             const track = result.tracks.shift();
             track.info.author = message.author.id;
+            if (track.info.title.length > 64) track.info.title = `${track.info.title.split('[').join('[').split(']').join(']').substr(0, 64)}…`;
             const isPlaylist = result.loadType === "PLAYLIST_LOADED";
 
             const res = await client.manager.handleDispatcher({
