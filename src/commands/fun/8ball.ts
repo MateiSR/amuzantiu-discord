@@ -46,5 +46,5 @@ export default new Command({
             const option = client.util.randomInt(0, 2);
             const answer = option == 0 ? client.util.randomArray(answers_yes) : option == 1 ? client.util.randomArray(answers_maybe) : client.util.randomArray(answers_no);
             // Send embed response
-            return await interaction.followUp({ embeds: [client.util.embed("8ball", Colors.NotQuiteBlack, `**Question:** ${question}\n**Answer:** ${answer}`)] });
+            return await interaction.followUp({ embeds: [client.util.embed("8ball", Colors.DarkPurple, `**Question:** ${question}\n**Answer:** ${answer}`)] });
     }});
