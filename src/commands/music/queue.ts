@@ -39,6 +39,8 @@ export default new Command({
             const chunked = client.util.chunk(queue, 10);
             const embeds = new Array<EmbedBuilder>();
 
+            const infoFooter: string = "___Now playing:___ " + `[${dispatcher.current.info.title}](${dispatcher.current.info.uri})` + " " + client.util.formatTime(dispatcher.current.info.length) + " " + dispatcher.current.info.isStream ? "**Stream**" : "" ;
+
             var page = 0;
             for (const chunk of chunked) {
                 page++;

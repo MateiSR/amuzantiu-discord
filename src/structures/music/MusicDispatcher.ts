@@ -86,6 +86,10 @@ export default class MusicDispatcher {
         return this.client.manager.has(this.guild.id);
     }
 
+    async switchChannel(channelId: string) {
+        this.voiceChannelId = channelId;
+    }
+
     async play() {
         if (!this.exists || !this.queue.length) return this.destroy();
         this.end = false;
