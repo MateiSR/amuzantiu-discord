@@ -18,7 +18,7 @@ export default new Command({
         // Stop the player
         try {
         dispatcher.stop();
-        return await interaction.followUp({ embeds: [client.util.embed("Stopped", Colors.Green, `Stopped playing [${dispatcher.current.info.title}](${dispatcher.current.info.uri})`)] });
+        return await interaction.followUp({ embeds: [client.util.embed("Stopped - Leaving..", Colors.Green, `Stopped playing [${dispatcher.current.info.title}](${dispatcher.current.info.uri})`)] });
         } catch (error) {
             // Inform user of occured error
             return await interaction.followUp({ embeds: [client.util.embed("Error", Colors.Red, `An error occured while trying to stop the player`)] });

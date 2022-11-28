@@ -108,7 +108,6 @@ export default class MusicDispatcher {
         if (skipTo > this.queue.length && !this.current) return;
         if (this.queue.length == 0 && this.current || skipTo == this.queue.length + 1) {
             this.stop();
-            this.destroy();
             return;
         } else
         if (skipTo > 1) {
@@ -121,9 +120,10 @@ export default class MusicDispatcher {
 
     async stop() {
         if (!this.player) return;
-        this.queue = [];
+        this.queue.length = 0;
         this.loop = "none";
         this.player.stopTrack();
+        this.destroy();
     }
 
     /* to be done

@@ -4,6 +4,7 @@ import { PrefixCommand } from "../../structures/PrefixCommand";
 export default new PrefixCommand({
     name: "queue",
     description: "Shows the music queue for the current server",
+    aliases: ["q"],
     async run({ message, args, client }) {
         // fetch bot guild member
         const guild = message.guild as Guild;

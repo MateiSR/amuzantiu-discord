@@ -4,6 +4,7 @@ import { PrefixCommand } from "../../structures/PrefixCommand";
 export default new PrefixCommand({
     name: "skip",
     description: "Skip playing song",
+    aliases: ["s", "next", "n"],
     run: async ({ client, message, args }) => {
 
         // Check if user is in a voice channel
