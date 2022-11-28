@@ -1,4 +1,4 @@
-import { Guild, Colors, EmbedBuilder, GuildMember, ApplicationCommandOptionType } from 'discord.js';
+import { Guild, Colors, EmbedBuilder, GuildMember } from 'discord.js';
 import { PrefixCommand } from "../../structures/PrefixCommand";
 
 export default new PrefixCommand({

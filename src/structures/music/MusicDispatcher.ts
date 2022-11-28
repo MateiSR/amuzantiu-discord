@@ -1,7 +1,7 @@
 import { ExtendedClient } from '../Client';
 import { DispatcherOptions } from '../../typings/music/DispatcherOptions';
 import { client } from '../..';
-import { Colors, DiscordAPIError, Guild, GuildBasedChannel, TextChannel } from 'discord.js';
+import { Colors, Guild, TextChannel } from 'discord.js';
 import { Player, Track } from 'shoukaku';
 import { Youtube } from '../../handlers/youtube';
 
