@@ -43,7 +43,7 @@ export default class MusicDispatcher {
             .setThumbnail(Youtube.thumb(this.current.info.uri, "small"))
             .addFields([{
                 name: "Source",
-                value: this.current.info.sourceName,
+                value: this.current.info.sourceName == "youtube" ? `[YouTube](${this.current.info.uri})` : this.current.info.sourceName,
                 inline: true
             },
             {
@@ -72,7 +72,6 @@ export default class MusicDispatcher {
             await this.play();
         } else {
             this.end = true;
-            this.player.clean();
         }
     }
 
@@ -89,6 +88,7 @@ export default class MusicDispatcher {
 
     async play() {
         if (!this.exists || !this.queue.length) return this.destroy();
+        this.end = false;
         this.current = this.queue.shift();
         this.player.playTrack({ track: this.current.track });
     }
