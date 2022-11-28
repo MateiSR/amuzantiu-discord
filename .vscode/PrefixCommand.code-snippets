@@ -1,0 +1,17 @@
+{
+  "Prefix Command": {
+    "scope": "javascript, typescript",
+    "prefix": "prefixcommand",
+    "body": [
+      "import { PrefixCommand } from \"../../structures/PrefixCommand\";",
+      "\n",
+      "export default new PrefixCommand({",
+      "    name: \"${1:commandName}\",",
+      "    description: \"${2:commandDescription}\",",
+      "    run: async ({ client, message, args }) => {",
+      "\n",
+      "}});"
+    ],
+    "description": "Create a new prefix command"
+  }
+}
