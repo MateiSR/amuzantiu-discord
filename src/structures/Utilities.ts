@@ -50,6 +50,13 @@ export default class Util {
         return duration.split(':').map(Number).reduce((acc, curr) => curr + acc * 60) * 1000;
     }
 
+    public timeToMs(time: string) {
+        const timeArray = time.split(':');
+        const minutes = parseInt(timeArray[0]);
+        const seconds = parseInt(timeArray[1]);
+        return (minutes * 60 + seconds) * 1000;
+    }
+
     // chunk array
     public chunk = (array: any[], size: number) => {
         const chunked_arr = [];
