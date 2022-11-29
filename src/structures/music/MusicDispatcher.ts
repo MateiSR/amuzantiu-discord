@@ -65,8 +65,10 @@ export default class MusicDispatcher {
         this.current = null;
         if (this.loop === "track") {
             this.queue.unshift(this.previous);
+        } else if (this.loop === "queue") {
+            this.queue.push(this.previous);
         }
-        if (this.loop === "none") {
+        else if (this.loop === "none") {
             this.queue.shift();
         }
         if (this.queue.length) {
