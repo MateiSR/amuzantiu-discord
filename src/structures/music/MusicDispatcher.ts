@@ -4,6 +4,7 @@ import { client } from '../..';
 import { Colors, Guild, TextChannel } from 'discord.js';
 import { Player, Track } from 'shoukaku';
 import { Youtube } from '../../handlers/youtube';
+import { filters } from './MusicAssets';
 
 export default class MusicDispatcher {
 
@@ -150,6 +151,15 @@ export default class MusicDispatcher {
     async shuffle() {
         if (!this.player) return;
         this.queue = client.util.shuffleArray(this.queue);
+    }
+
+    async setFilter(filterOption: string) {
+        if (!this.player) return;
+        // if already has filters, remove them
+        if (this.player.filters) this.player.clearFilters();
+        const filter = filters.get(filterOption) || null;
+        if (!filter) return new Error("Invalid filter option");
+        this.player.setFilters(filter);
     }
 
     destroy() {
