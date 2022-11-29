@@ -1,6 +1,7 @@
 import { PrefixCommand } from "../../structures/PrefixCommand";
-import { LavalinkResponse } from "shoukaku";
+import { LavalinkResponse, Track } from "shoukaku";
 import { Colors, Guild } from 'discord.js';
+import { Youtube } from "../../handlers/youtube";
 
 // check if query is a url
 const isURL = (url: string) => {
@@ -10,6 +11,27 @@ const isURL = (url: string) => {
     } catch {
         return false;
     }
+}
+
+const trackPlayEmbed = (client, guildId: string,  track: Track) => {
+    const res = client.manager.get(guildId);
+    return client.util.embed("Track added to queue", Colors.Green, `Added [${track.info.title}](${track.info.uri}) to the queue`)
+            .setThumbnail(Youtube.thumb(track.info.uri, "small"))
+            .addFields({
+                name: "Duration",
+                value: client.util.formatTime(track.info.length),
+                inline: true
+            },
+                {
+                    name: "Requested by",
+                    value: `<@${track.info.author}>`,
+                    inline: true
+                },
+                {
+                    name: "Position in queue",
+                    value: res?.queue.length.toString(),
+                    inline: true
+                })
 }
 
 export default new PrefixCommand({
@@ -70,7 +92,7 @@ export default new PrefixCommand({
                 }
             }
 
-            await message.channel.send({ embeds: [isPlaylist ? client.util.embed("Playlist added to queue", Colors.Green, `Added ${result.tracks.length + 1} tracks to the queue (${message.member})`) : client.util.embed("Track added to queue", Colors.Green, `Added ${track.info.title} to the queue (${message.member})`)] });
+            await message.channel.send({ embeds: [isPlaylist ? client.util.embed("Playlist added to queue", Colors.Green, `Added ${result.tracks.length + 1} tracks to the queue (${message.member})`) : trackPlayEmbed(client, message.guild.id, track)] });
 
             res?.play();
             return;
@@ -92,7 +114,7 @@ export default new PrefixCommand({
             member: message.member
         });
 
-        await message.channel.send({ embeds: [client.util.embed("Track added to queue", Colors.Green, `Added [${track.info.title}](${track.info.uri}) to the queue (${message.member})`)] });
+        await message.channel.send({ embeds: [trackPlayEmbed(client, message.guild.id, track)] });
 
         res?.play();
         return;

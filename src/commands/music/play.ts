@@ -1,5 +1,6 @@
 import { ApplicationCommandOptionType, Colors, Guild } from "discord.js";
-import { LavalinkResponse } from "shoukaku";
+import { LavalinkResponse, Track } from "shoukaku";
+import { Youtube } from "../../handlers/youtube";
 import { Command } from "../../structures/Command";
 
 // check if query is a url
@@ -11,6 +12,29 @@ const isURL = (url: string) => {
         return false;
     }
 }
+
+const trackPlayEmbed = (client, guildId: string,  track: Track) => {
+    const res = client.manager.get(guildId);
+    return client.util.embed("Track added to queue", Colors.Green, `Added [${track.info.title}](${track.info.uri}) to the queue`)
+            .setThumbnail(Youtube.thumb(track.info.uri, "small"))
+            .addFields({
+                name: "Duration",
+                value: client.util.formatTime(track.info.length),
+                inline: true
+            },
+                {
+                    name: "Requested by",
+                    value: `<@${track.info.author}>`,
+                    inline: true
+                },
+                {
+                    name: "Position in queue",
+                    value: res?.queue.length.toString(),
+                    inline: true
+                })
+}
+
+
 
 export default new Command({
     name: "play",
@@ -71,7 +95,7 @@ export default new Command({
                 }
             }
 
-            await interaction.followUp({ embeds: [isPlaylist ? client.util.embed("Playlist added to queue", Colors.Green, `Added ${result.tracks.length + 1} tracks to the queue (${interaction.member})`) : client.util.embed("Track added to queue", Colors.Green, `Added ${track.info.title} to the queue (${interaction.member})`)] });
+            await interaction.followUp({ embeds: [isPlaylist ? client.util.embed("Playlist added to queue", Colors.Green, `Added ${result.tracks.length + 1} tracks to the queue (${interaction.member})`) : trackPlayEmbed(client, interaction.guild.id, track)] });
 
             res?.play();
             return;
@@ -91,7 +115,8 @@ export default new Command({
             track: track,
             member: interaction.member
         });
-        await interaction.followUp({ embeds: [client.util.embed("Track added to queue", Colors.Green, `Added [${track.info.title}](${track.info.uri}) to the queue (${interaction.member})`)] });
+
+        await interaction.followUp({ embeds: [trackPlayEmbed(client, interaction.guild.id, track)] });
         res?.play();
         return;
 

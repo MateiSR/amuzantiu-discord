@@ -92,6 +92,7 @@ export default class MusicDispatcher {
 
     // get queue total duration
     get totalDuration() {
+        if (!this.exists || !this.queue.length) return 0;
         let total = 0;
         this.queue.forEach(track => {
             total += track.info.length;
