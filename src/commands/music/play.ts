@@ -66,6 +66,7 @@ export default new Command({
 
             const result = await node.rest.resolve(query) as LavalinkResponse | null;
             if (!result || result["loadType"] == "NO_MATCHES") return await interaction.followUp({ embeds: [client.util.embed("No results found", Colors.Red, "Please try again with a different query")] });
+            if (result["loadType"] == "LOAD_FAILED") return await interaction.followUp({ embeds: [client.util.embed("Failed to load track", Colors.Red, "Please try again with a different query")] });
             const track = result.tracks.shift();
             track.info.author = interaction.user.id;
             const isPlaylist = result.loadType === "PLAYLIST_LOADED";
@@ -104,6 +105,7 @@ export default new Command({
 
         const result = await node.rest.resolve(`ytsearch:${query}`) as LavalinkResponse | null;
         if (!result|| result["loadType"] == "NO_MATCHES") return await interaction.followUp({ embeds: [client.util.embed("No results found", Colors.Red, "Please try again with a different query")] });
+        if (result["loadType"] == "LOAD_FAILED") return await interaction.followUp({ embeds: [client.util.embed("Failed to load track", Colors.Red, "Please try again with a different query")] });
         const track = result.tracks.shift();
         track.info.author = interaction.user.id;
         if (track.info.title.length > 64) track.info.title = `${track.info.title.split('[').join('[').split(']').join(']').substr(0, 64)}…`;
