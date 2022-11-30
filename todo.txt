@@ -16,4 +16,5 @@ Help command {f} {cm:2022-11-30} {h}
 Add spotify support {f}
 MongoDB connection?
 Loop command {cm:2022-11-29} {h}
-Merge SEARCH_RESULT && TRACK_LOADED (URL & Search) in Play Command {f}
+Merge SEARCH_RESULT && TRACK_LOADED (URL & Search) in Play Command {f} {cm:2022-12-01} {h}
+Fix skip command (again & again & again)

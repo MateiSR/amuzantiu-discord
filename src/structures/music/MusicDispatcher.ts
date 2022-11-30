@@ -68,9 +68,6 @@ export default class MusicDispatcher {
         } else if (this.loop === "queue") {
             this.queue.push(this.previous);
         }
-        else if (this.loop === "none") {
-            this.queue.shift();
-        }
         if (this.queue.length) {
             await this.play();
         } else {
@@ -136,9 +133,8 @@ export default class MusicDispatcher {
         } else
         if (skipTo > 1) {
             this.queue = this.queue.slice(skipTo - 1);
-            this.player.stopTrack();
         }
-        else this.player.stopTrack();
+        this.player.stopTrack();
         if (this.player.paused) this.resume();
     }
 
