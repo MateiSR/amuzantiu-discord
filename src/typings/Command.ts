@@ -21,5 +21,6 @@ type RunFunction = (options: RunOptions) => any;
 export type CommandType = {
     type?: "SLASH";
     cooldown?: number;
+    category?: string;
     run: RunFunction;
 } & ChatInputApplicationCommandData;

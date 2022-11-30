@@ -70,6 +70,8 @@ export class ExtendedClient extends Client {
             if (prefixCommandFiles.includes(filePath)) return;
             const command: CommandType = await this.importFile(filePath);
             if (!command.name) return;
+            // Set command category
+            command.category = filePath.split("/")[filePath.split("/").length - 2];
             this.logger.log(`Registering SLASH command: ${command.name}`);
 
             this.commands.set(command.name, command);
@@ -88,6 +90,8 @@ export class ExtendedClient extends Client {
         prefixCommandFiles.forEach(async (filePath) => {
             const command: PrefixCommandType = await this.importFile(filePath);
             if (!command.name) return;
+            // Set command category
+            command.category = filePath.split("/")[filePath.split("/").length - 2];
             this.logger.log(`Registering PREFIX command: ${command.name}`);
 
             this.prefixCommands.set(command.name, command);
