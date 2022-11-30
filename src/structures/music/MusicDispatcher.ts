@@ -127,10 +127,6 @@ export default class MusicDispatcher {
     async skip(skipTo = 1) {
         if (!this.player) return;
         if (skipTo > this.queue.length && !this.current) return;
-        if (this.queue.length == 0 && this.current || skipTo == this.queue.length + 1) {
-            this.stop();
-            return;
-        } else
         if (skipTo > 1) {
             this.queue = this.queue.slice(skipTo - 1);
         }

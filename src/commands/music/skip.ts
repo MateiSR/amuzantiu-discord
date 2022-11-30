@@ -27,11 +27,6 @@ export default new Command({
         const amount = args.getInteger("amount") || 1;
         if (amount - 1 > dispatcher.queue.length) return await interaction.followUp({ embeds: [client.util.embed("There are not enough songs in queue", Colors.Red, "Please enter a valid amount")] });
         try {
-        const isLastSong = (dispatcher.current && dispatcher.queue.length == 0) || amount == dispatcher.queue.length + 1;
-        if (isLastSong) {
-            dispatcher.skip(amount);
-            return await interaction.followUp({ embeds: [client.util.embed("Stopped playing", Colors.Green, `Skipping **last song in queue**, leaving voice channel`)] });
-        }
         dispatcher.skip(amount);
         // Send success message
         return await interaction.followUp({ embeds: [client.util.embed("Skipped", Colors.Green, `Skipped **${amount}** song${amount > 1 ? "s" : ""}`)] });
