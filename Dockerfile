@@ -21,4 +21,4 @@ COPY --from=builder /var/bot/dist/ ./
 RUN adduser -S bot
 USER bot
 
-RUN node src/index.js
+ENTRYPOINT [ "node", "src/index.js" ]
