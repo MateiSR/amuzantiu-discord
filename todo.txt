@@ -6,14 +6,14 @@ Add command cooldowns {cm:2022-11-28} {h}
 Add info command {cm:2022-11-28} {h}
 Previous command {cm:2022-11-28} {h}
 Music filter command {cm:2022-11-29} {h}
-Lyrics command (genius / musixmatch)
+Lyrics command (genius / musixmatch) {cm:2022-12-02} {h}
 Radio command (maybe?)
 Music stream handling
 Volume command {cm:2022-11-28} {h}
 Update queue command (bottom info) {cm:2022-11-28} {h}
 Add pos in queue & eta until playing {cm:2022-11-29} {h}
 Help command {f} {cm:2022-11-30} {h}
-Add spotify support {f}
+Add spotify support {f} {cm:2022-12-01} {h}
 MongoDB connection?
 Loop command {cm:2022-11-29} {h}
 Merge SEARCH_RESULT && TRACK_LOADED (URL & Search) in Play Command {f} {cm:2022-12-01} {h}

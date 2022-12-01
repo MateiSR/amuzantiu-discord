@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-unfetch';
 const { getData, getPreview, getTracks, getDetails } = require('spotify-url-info')(fetch);
+import { client } from '../..';
 
 export default class MusicUtil {
 
@@ -57,6 +58,14 @@ export default class MusicUtil {
             results.push(result.join(" "));
         });
         return results;
+    }
+
+    // fetch lyrics from genius
+    public fetchLyrics = async (query: string) => {
+        const songs = await client.manager.genius.songs.search(query);
+        if (!songs || !songs.length) return null;
+        const lyrics = await songs[0].lyrics();
+        return lyrics;
     }
 
 

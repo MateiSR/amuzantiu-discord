@@ -4,14 +4,17 @@ import { ExtendedClient } from "../Client";
 import MusicDispatcher from "./MusicDispatcher";
 import { ManagerOptions } from "../../typings/music/ManagerOptions";
 import MusicUtil from './MusicUtil';
+import { Client } from "genius-lyrics";
 
 export default class MusicManager extends Collection<string, MusicDispatcher> { // guildId, Dispatcher
 
     client: ExtendedClient = client;
     util: MusicUtil = new MusicUtil();
+    genius: Client;
 
     constructor() {
         super();
+        this.genius = new Client();
     }
 
     async handleDispatcher(options: ManagerOptions) {
