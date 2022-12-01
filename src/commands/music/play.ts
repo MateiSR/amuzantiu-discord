@@ -1,6 +1,5 @@
 import { ApplicationCommandOptionType, Colors, Guild } from "discord.js";
 import { LavalinkResponse, Track } from "shoukaku";
-import { Youtube } from "../../handlers/youtube";
 import { Command } from "../../structures/Command";
 
 // check if query is a url
@@ -16,7 +15,7 @@ const isURL = (url: string) => {
 const trackPlayEmbed = (client, guildId: string,  track: Track) => {
     const res = client.manager.get(guildId);
     return client.util.embed("Track added to queue", Colors.Green, `Added [${track.info.title}](${track.info.uri}) to the queue`)
-            .setThumbnail(Youtube.thumb(track.info.uri, "small"))
+            .setThumbnail(client.manager.util.getYouTubeThumbnail(track.info.uri, "small"))
             .addFields({
                 name: "Duration",
                 value: client.util.formatTime(track.info.length),
@@ -64,6 +63,7 @@ export default new Command({
 
         // check if query is a url
         if (isURL(query)) var result = await node.rest.resolve(query) as LavalinkResponse | null;
+        // check if spotify in is url
         else var result = await node.rest.resolve(`ytsearch:${query}`) as LavalinkResponse | null;
         if (!result || result["loadType"] == "NO_MATCHES") return await interaction.followUp({ embeds: [client.util.embed("No results found", Colors.Red, "Please try again with a different query")] });
         if (result["loadType"] == "LOAD_FAILED") return await interaction.followUp({ embeds: [client.util.embed("Failed to load track", Colors.Red, "Please try again with a different query")] });

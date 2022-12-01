@@ -3,10 +3,12 @@ import { client } from "../..";
 import { ExtendedClient } from "../Client";
 import MusicDispatcher from "./MusicDispatcher";
 import { ManagerOptions } from "../../typings/music/ManagerOptions";
+import MusicUtil from './MusicUtil';
 
 export default class MusicManager extends Collection<string, MusicDispatcher> { // guildId, Dispatcher
 
     client: ExtendedClient = client;
+    util: MusicUtil = new MusicUtil();
 
     constructor() {
         super();

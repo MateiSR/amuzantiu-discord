@@ -3,7 +3,6 @@ import { DispatcherOptions } from '../../typings/music/DispatcherOptions';
 import { client } from '../..';
 import { Colors, Guild, TextChannel } from 'discord.js';
 import { Player, Track } from 'shoukaku';
-import { Youtube } from '../../handlers/youtube';
 import { filters } from './MusicAssets';
 
 export default class MusicDispatcher {
@@ -41,7 +40,7 @@ export default class MusicDispatcher {
         // Get GuildMember from track author
         const requester = await this.guild.members.fetch(this.current.info.author);
         await channel.send({embeds: [client.util.embed("🎵   Now playing", Colors.Blue, `[${this.current.info.title}](${this.current.info.uri})`)
-            .setThumbnail(Youtube.thumb(this.current.info.uri, "small"))
+            .setThumbnail(client.manager.util.getYouTubeThumbnail(this.current.info.uri, "small"))
             .addFields([{
                 name: "Source",
                 value: this.current.info.sourceName == "youtube" ? `[YouTube](${this.current.info.uri})` : this.current.info.sourceName,

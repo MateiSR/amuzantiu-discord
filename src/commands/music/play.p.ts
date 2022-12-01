@@ -1,7 +1,6 @@
 import { PrefixCommand } from "../../structures/PrefixCommand";
 import { LavalinkResponse, Track } from "shoukaku";
 import { Colors, Guild } from 'discord.js';
-import { Youtube } from "../../handlers/youtube";
 
 // check if query is a url
 const isURL = (url: string) => {
@@ -16,7 +15,7 @@ const isURL = (url: string) => {
 const trackPlayEmbed = (client, guildId: string,  track: Track) => {
     const res = client.manager.get(guildId);
     return client.util.embed("Track added to queue", Colors.Green, `Added [${track.info.title}](${track.info.uri}) to the queue`)
-            .setThumbnail(Youtube.thumb(track.info.uri, "small"))
+            .setThumbnail(client.manager.util.getYouTubeThumbnail(track.info.uri, "small"))
             .addFields({
                 name: "Duration",
                 value: client.util.formatTime(track.info.length),
