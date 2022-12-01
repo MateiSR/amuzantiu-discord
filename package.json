@@ -20,7 +20,11 @@
     "discord.js": "^14.6.0",
     "dotenv": "^16.0.3",
     "glob": "^8.0.3",
-    "shoukaku": "^3.2.2"
+    "isomorphic-unfetch": "^3.1.0",
+    "node-fetch": "^3.3.0",
+    "shoukaku": "^3.2.2",
+    "spotify-url-info": "^3.1.9",
+    "unfetch": "^4.2.0"
   },
   "devDependencies": {
     "@types/glob": "^8.0.0",

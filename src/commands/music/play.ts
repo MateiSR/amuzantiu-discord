@@ -62,8 +62,54 @@ export default new Command({
         */
 
         // check if query is a url
-        if (isURL(query)) var result = await node.rest.resolve(query) as LavalinkResponse | null;
-        // check if spotify in is url
+        if (isURL(query))
+        {
+            // if query isn't spotify
+            if (!client.manager.util.isSpotify(query)) var result = await node.rest.resolve(query) as LavalinkResponse | null;
+            else {
+                client.manager.util.fetchSpotifyTracks(query).then(async tracks => {
+                    // handle like isPlaylist or single tracks depending in tracks.size
+                    const trackStr = tracks.shift();
+                    const result = await node.rest.resolve(`ytsearch:${trackStr}`) as LavalinkResponse | null;
+                    if (!result || result["loadType"] == "NO_MATCHES" || result["loadType"] == "LOAD_FAILED") return;
+                    const track = result.tracks.shift();
+                    track.info.author = interaction.user.id;
+                    var res = await client.manager.handleDispatcher({
+                        guildId: interaction.guild.id,
+                        guild: interaction.guild,
+                        VoiceChannelId: interaction.member.voice.channelId,
+                        TextChannelId: interaction.channel.id,
+                        track: track,
+                        member: interaction.member
+                    });
+                    const isPlaylist = tracks.length >= 2;
+                    if (isPlaylist) {
+                    tracks.forEach(async trackStr => {
+                        client.logger.debug(`Handling spotify track: ${trackStr}`);
+                        const result = await node.rest.resolve(`ytsearch:${trackStr}`) as LavalinkResponse | null;
+                        if (!result || result["loadType"] == "NO_MATCHES" || result["loadType"] == "LOAD_FAILED") return;
+                        const track = result.tracks.shift();
+                        track.info.author = interaction.user.id;
+                        res = await client.manager.handleDispatcher({
+                            guildId: interaction.guild.id,
+                            guild: interaction.guild,
+                            VoiceChannelId: interaction.member.voice.channelId,
+                            TextChannelId: interaction.channel.id,
+                            track: track,
+                            member: interaction.member
+                        });
+                    });
+                    }
+
+                    res?.play();
+                    // return error embed
+                    if (!res) return await interaction.followUp({ embeds: [client.util.embed("An error occured", Colors.Red, "Please try again")] });
+                    // return success embed
+                    return await interaction.followUp({ embeds: [isPlaylist ? client.util.embed("Playlist added to queue", Colors.Green, `Added ${tracks.length} tracks to the queue (${interaction.member})`) : trackPlayEmbed(client, interaction.guild.id, track)] });
+                });
+                return;
+            }
+        }
         else var result = await node.rest.resolve(`ytsearch:${query}`) as LavalinkResponse | null;
         if (!result || result["loadType"] == "NO_MATCHES") return await interaction.followUp({ embeds: [client.util.embed("No results found", Colors.Red, "Please try again with a different query")] });
         if (result["loadType"] == "LOAD_FAILED") return await interaction.followUp({ embeds: [client.util.embed("Failed to load track", Colors.Red, "Please try again with a different query")] });
