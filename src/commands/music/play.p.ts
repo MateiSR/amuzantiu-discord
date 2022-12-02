@@ -105,7 +105,7 @@ export default new PrefixCommand({
                 return;
             }
         }
-        else var result = await node.rest.resolve(`ytsearch:${query}`) as LavalinkResponse | null;
+        else var result = await node.rest.resolve(`ytsearch:${args.join(" ")}`) as LavalinkResponse | null;
         if (!result || result["loadType"] == "NO_MATCHES") return await message.reply({ embeds: [client.util.embed("No results found", Colors.Red, "Please try again with a different query")] });
         if (result["loadType"] == "LOAD_FAILED") return await message.reply({ embeds: [client.util.embed("Failed to load track", Colors.Red, "Please try again with a different query")] });
         const track = result.tracks.shift();
