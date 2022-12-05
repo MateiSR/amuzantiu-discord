@@ -17,7 +17,7 @@
   "dependencies": {
     "axios": "^1.2.0",
     "chalk": "4.1.2",
-    "discord.js": "^14.6.0",
+    "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
     "genius-lyrics": "^4.4.0",
     "glob": "^8.0.3",
