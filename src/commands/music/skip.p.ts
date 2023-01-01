@@ -16,6 +16,13 @@ export default new PrefixCommand({
         // Check if user is in the same voice channel as the bot
         if (message.member.voice.channelId !== dispatcher.voiceChannelId) return await message.reply({ embeds: [client.util.embed("You are not in my voice channel", Colors.Red, "Please join my voice channel and try again")] });
 
+        // If loop mode = track, disable looping & skip the song
+        if (dispatcher.loop === "track") {
+            dispatcher.loop = "none";
+            dispatcher.skip();
+            return await message.reply({ embeds: [client.util.embed("Skipped", Colors.Green, "Skipped the song")] });
+        }
+
         // Skip the song
         const amount = parseInt(args[0]) || 1;
         if (amount - 1 > dispatcher.queue.length) return await message.reply({ embeds: [client.util.embed("There are not enough songs in queue", Colors.Red, "Please enter a valid amount")] });

@@ -35,6 +35,8 @@ export default class MusicDispatcher {
     }
 
     onTrackStart = async () => {
+        // if dispatcher.loop === "track", return
+        if (this.loop === "track") return;
         // Send embed corresponding to the track
         const channel = this.guild.channels.cache.get(this.textChannelId) as TextChannel;
         // Get GuildMember from track author

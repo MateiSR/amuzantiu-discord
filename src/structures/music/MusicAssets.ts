@@ -56,7 +56,7 @@ export const filters = new Map<string, FilterOptions>([
             rate: 1,
         }
     }],
-    ["8D", {
+    ["8d", {
         rotation: {
             rotationHz: 0.2
         },

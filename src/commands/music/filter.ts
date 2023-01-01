@@ -51,7 +51,7 @@ export default new Command({
         if (interaction.member.voice.channelId !== dispatcher.voiceChannelId) return await interaction.followUp({ embeds: [client.util.embed("You are not in my voice channel", Colors.Red, "Please join my voice channel and try again")] });
 
         // get filter
-        const filter = args.getString("filter", true);
+        const filter = args.getString("filter", true).toLowerCase();
 
         // if filter == off
         if (filter === "off") {
