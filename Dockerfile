@@ -2,7 +2,7 @@ FROM node:lts-alpine AS builder
 WORKDIR /var/bot
 
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile && yarn cache clean
+RUN yarn install && yarn cache clean
 
 COPY . .
 
@@ -14,7 +14,7 @@ WORKDIR /var/bot
 
 COPY package.json yarn.lock ./
 ARG NODE_ENV=production
-RUN yarn install --frozen-lockfile && yarn cache clean
+RUN yarn install && yarn cache clean
 
 COPY --from=builder /var/bot/dist/ ./
 
