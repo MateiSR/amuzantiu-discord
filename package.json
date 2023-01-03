@@ -21,7 +21,7 @@
     "dotenv": "^16.0.3",
     "genius-lyrics": "^4.4.0",
     "glob": "^8.0.3",
-    "isomorphic-unfetch": "^3.1.0",
+    "isomorphic-unfetch": "^4.0.2",
     "node-fetch": "^3.3.0",
     "shoukaku": "^3.2.2",
     "spotify-url-info": "^3.1.9",
