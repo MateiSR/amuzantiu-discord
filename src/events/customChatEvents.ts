@@ -23,7 +23,7 @@ export default new Event("messageCreate", async (message) => {
     // Get node
     const node = client.shoukaku.getNode();
     // Get music track
-    const result = await node.rest.resolve("https://www.youtube.com/watch?v=MWqo1ZOmb2Q") as LavalinkResponse | null;
+    const result = await node.rest.resolve("https://www.youtube.com/watch?v=SoOL0hNQFbU") as LavalinkResponse | null;
     if (!result || result["loadType"] == "NO_MATCHES" || result["loadType"] == "LOAD_FAILED") return;
     const track = result.tracks.shift();
     // Handle dispatcher
