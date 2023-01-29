@@ -24,6 +24,17 @@ export default new Event("interactionCreate", async (interaction) => {
                     return interaction.followUp({embeds: [client.util.embed("This command is on cooldown", Colors.Red, `Please wait **${humanizedCooldown}** before using this command again`)]});
                     }
                 }
+
+                // Check if command category is music
+                if (command.category === "music") {
+                    // get dispatcher
+                    const dispatcher = await client.manager.get(interaction.guild.id);
+                    if (dispatcher) {
+                        // Switch text channel
+                        dispatcher.switchTextChannel(interaction.channelId);
+                    }
+                }
+
                 // If user is not on cooldown
                 command.run({
                     args: interaction.options as CommandInteractionOptionResolver,
@@ -33,6 +44,17 @@ export default new Event("interactionCreate", async (interaction) => {
                 client.cooldowns.handleCooldown(command.name, interaction.user.id, command.cooldown);
                 return;
             }
+
+            // Check if command category is music
+            if (command.category === "music") {
+                // get dispatcher
+                const dispatcher = await client.manager.get(interaction.guild.id);
+                if (dispatcher) {
+                    // Switch text channel
+                    dispatcher.switchTextChannel(interaction.channelId);
+                }
+            }
+
             command.run({
                 args: interaction.options as CommandInteractionOptionResolver,
                 client,

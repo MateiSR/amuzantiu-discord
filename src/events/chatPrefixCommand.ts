@@ -45,10 +45,32 @@ export default new Event("messageCreate", async (message) => {
                     return message.reply({embeds: [client.util.embed("This command is on cooldown", Colors.Red, `Please wait **${humanizedCooldown}** before using this command again`)]});
                 }
             }
+
+            // Check if command category is music
+            if (command.category === "music") {
+            // get dispatcher
+            const dispatcher = await client.manager.get(message.guild.id);
+            if (dispatcher) {
+            // Switch text channel
+            dispatcher.switchTextChannel(message.channelId);
+            }
+            }
+
             await command.run({ client, message, args });
             client.cooldowns.handleCooldown(command.name, message.author.id, command.cooldown);
             return;
         }
+
+        // Check if command category is music
+        if (command.category === "music") {
+        // get dispatcher
+        const dispatcher = await client.manager.get(message.guild.id);
+        if (dispatcher) {
+        // Switch text channel
+        dispatcher.switchTextChannel(message.channelId);
+        }
+        }
+
         await command.run({ client, message, args });
     } catch (error) { console.error(error) };
 });

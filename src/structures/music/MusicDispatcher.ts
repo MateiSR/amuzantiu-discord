@@ -157,6 +157,12 @@ export default class MusicDispatcher {
         this.player.setFilters(filter);
     }
 
+    async switchTextChannel(channelId: string) {
+        if (!this.player) return;
+        if (channelId === this.textChannelId) return;
+        this.textChannelId = channelId;
+    }
+
     destroy() {
         this.player.clean();
         this.player.connection.disconnect();
