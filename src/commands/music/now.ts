@@ -25,8 +25,8 @@ export default new Command({
                     inline: true
                 },
                 {
-                    name: "Remaining",
-                    value: client.util.formatTime(track.info.length - dispatcher.player.position),
+                    name: "Progress",
+                    value: "**" + client.util.formatTime(dispatcher.player.position) + "**" + "/" + "**" +client.util.formatTime(track.info.length) + "**",
                     inline: true
                 })
         return await interaction.followUp({ embeds: [embed] });
