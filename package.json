@@ -1,6 +1,6 @@
 {
   "name": "amuzantiu-discord",
-  "version": "2.1.3",
+  "version": "2.2.0",
   "description": "Discord bot written in discord.js - now rewritten in TypeScript, with all the cool features",
   "main": "src/index.js",
   "scripts": {
@@ -24,7 +24,7 @@
     "isomorphic-unfetch": "^3.1.0",
     "node-fetch": "^3.3.0",
     "shoukaku": "^3.2.2",
-    "spotify-url-info": "^3.1.9",
+    "spotify-url-info": "^3.2.3",
     "unfetch": "^4.2.0"
   },
   "devDependencies": {
