@@ -872,10 +872,10 @@ function-bind@^1.1.1:
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
   integrity sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==
 
-genius-lyrics@^4.4.0:
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/genius-lyrics/-/genius-lyrics-4.4.2.tgz#839d059d0eb3f0b6fe7553fc0ff60525f74895d6"
-  integrity sha512-1+wHLAlaNOZWDNKpoYfiveodwDSgS0645Nox6ltb+yCmLdxdTDbhI8lKmJkn9ZRHStqO+MOdhtw6K+QeIIwN0w==
+genius-lyrics@^4.4.3:
+  version "4.4.3"
+  resolved "https://registry.yarnpkg.com/genius-lyrics/-/genius-lyrics-4.4.3.tgz#0b7e461d61a3bb058fdc238532d0875ab0d9c6f4"
+  integrity sha512-06L8GUg49FrUYEmSQvrSH74RH5S+qyerHwBpvk8vZLwWgpEw4mIWZDob5IpXT1ryhqazM9K6CXGNucKYPO8kng==
   dependencies:
     cheerio "^1.0.0-rc.9"
     undici "^5.8.2"
@@ -1045,13 +1045,13 @@ isexe@^2.0.0:
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
   integrity sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==
 
-isomorphic-unfetch@^4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/isomorphic-unfetch/-/isomorphic-unfetch-4.0.2.tgz#5fc04eeb1053b7b702278e2cf7a3f246cb3a9214"
-  integrity sha512-1Yd+CF/7al18/N2BDbsLBcp6RO3tucSW+jcLq24dqdX5MNbCNTw1z4BsGsp4zNmjr/Izm2cs/cEqZPp4kvWSCA==
+isomorphic-unfetch@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/isomorphic-unfetch/-/isomorphic-unfetch-3.1.0.tgz#87341d5f4f7b63843d468438128cb087b7c3e98f"
+  integrity sha512-geDJjpoZ8N0kWexiwkX8F9NkTsXhetLPVbZFQ+JTW239QNOwvB0gniuR1Wc6f0AMTn7/mFGyXvHTifrCp/GH8Q==
   dependencies:
-    node-fetch "^3.2.0"
-    unfetch "^5.0.0"
+    node-fetch "^2.6.1"
+    unfetch "^4.2.0"
 
 js-sdsl@^4.1.4:
   version "4.3.0"
@@ -1186,6 +1186,13 @@ node-domexception@^1.0.0:
   resolved "https://registry.yarnpkg.com/node-domexception/-/node-domexception-1.0.0.tgz#6888db46a1f71c0b76b3f7555016b63fe64766e5"
   integrity sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==
 
+node-fetch@^2.6.1:
+  version "2.6.9"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.9.tgz#7c7f744b5cc6eb5fd404e0c7a9fec630a55657e6"
+  integrity sha512-DJm/CJkZkRjKKj4Zi4BsKVZh3ValV5IR5s7LVZnW+6YMh0W1BfNA8XSs6DLMGYlId5F3KnA70uu2qepcR08Qqg==
+  dependencies:
+    whatwg-url "^5.0.0"
+
 node-fetch@^2.6.7:
   version "2.6.8"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.8.tgz#a68d30b162bc1d8fd71a367e81b997e1f4d4937e"
@@ -1193,7 +1200,7 @@ node-fetch@^2.6.7:
   dependencies:
     whatwg-url "^5.0.0"
 
-node-fetch@^3.2.0, node-fetch@^3.3.0:
+node-fetch@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-3.3.0.tgz#37e71db4ecc257057af828d523a7243d651d91e4"
   integrity sha512-BKwRP/O0UvoMKp7GNdwPlObhYGB5DQqwhEDQlNKuoqwVYSxkSZCSbHjnFFmUEtwSKRPU4kNK8PbDYYitwaE3QA==
@@ -1623,10 +1630,10 @@ type-fest@^0.20.2:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.20.2.tgz#1bf207f4b28f91583666cb5fbd327887301cd5f4"
   integrity sha512-Ne+eE4r0/iWnpAxD852z3A+N0Bt5RN//NjJwRd2VFHEmrywxf5vsZlh4R6lixl6B+wz/8d+maTSAkN1FIkI3LQ==
 
-typescript@^4.9.3:
-  version "4.9.4"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.9.4.tgz#a2a3d2756c079abda241d75f149df9d561091e78"
-  integrity sha512-Uz+dTXYzxXXbsFpM86Wh3dKCxrQqUcVMxwU54orwlJjOpO3ao8L7j5lH+dWfTwgCwIuM9GQ2kvVotzYJMXTBZg==
+typescript@^4.9.5:
+  version "4.9.5"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.9.5.tgz#095979f9bcc0d09da324d58d03ce8f8374cbe65a"
+  integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==
 
 undici@^5.13.0, undici@^5.8.2:
   version "5.16.0"

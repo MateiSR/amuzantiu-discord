@@ -67,7 +67,7 @@ export default class MusicUtil {
         const songs = await client.manager.genius.songs.search(query);
         if (!songs || !songs.length) return null;
         const lyrics = await songs[0].lyrics();
-        return lyrics;
+        return lyrics || null;
     }
 
 

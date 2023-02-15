@@ -100,8 +100,10 @@ export default new PrefixCommand({
                     }
 
                     res?.play();
+                    // get dispatcher
+                    const dispatcher = await client.manager.get(message.guild.id);
                     // return error embed
-                    if (!res) return await message.reply({ embeds: [client.util.embed("An error occured", Colors.Red, "Please try again")] });
+                    if (!res && !dispatcher.current) return await message.reply({ embeds: [client.util.embed("An error occured", Colors.Red, "Please try again")] });
                     // return success embed
                     return await message.reply({ embeds: [isPlaylist ? client.util.embed("Playlist added to queue", Colors.Green, `Added ${tracks.length} tracks to the queue (${message.member})`) : trackPlayEmbed(client, message.guild.id, track)] });
                 });

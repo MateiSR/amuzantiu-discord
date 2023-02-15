@@ -106,8 +106,10 @@ export default new Command({
                     }
 
                     res?.play();
+                    // get dispatcher
+                    const dispatcher = await client.manager.get(interaction.guild.id);
                     // return error embed
-                    if (!res) return await interaction.followUp({ embeds: [client.util.embed("An error occured", Colors.Red, "Please try again")] });
+                    if (!res && !dispatcher.current) return await interaction.followUp({ embeds: [client.util.embed("An error occured", Colors.Red, "Please try again")] });
                     // return success embed
                     return await interaction.followUp({ embeds: [isPlaylist ? client.util.embed("Playlist added to queue", Colors.Green, `Added ${tracks.length} tracks to the queue (${interaction.member})`) : trackPlayEmbed(client, interaction.guild.id, track)] });
                 });
