@@ -1,4 +1,5 @@
 import { Colors } from "discord.js";
+import { Track } from "shoukaku";
 import { PrefixCommand } from "../../structures/PrefixCommand";
 
 
@@ -22,11 +23,30 @@ export default new PrefixCommand({
         // Check if the user provided a valid number
         if (isNaN(Number(args[0])) || isNaN(Number(args[1]))) return await message.reply({ embeds: [client.util.embed("Invalid number", Colors.Red, "Please provide a valid number and try again")] });
 
-        // Swap the songs
-        const song1 = dispatcher.queue[Number(args[0]) - 1];
-        const song2 = dispatcher.queue[Number(args[1]) - 1];
-        dispatcher.queue[Number(args[0]) - 1] = song2;
-        dispatcher.queue[Number(args[1]) - 1] = song1;
+        // Check if the user provided two different numbers
+        if (Number(args[0]) === Number(args[1])) return await message.reply({ embeds: [client.util.embed("Invalid number", Colors.Red, "Please provide two different numbers and try again")] });
 
-        await message.reply({ embeds: [client.util.embed("Successfully swapped songs", Colors.Green, `Swapped **${song1.info.title}** with **${song2.info.title}**`)] });
+        // Swap the numbers so the first one is smaller
+        if (Number(args[0]) > Number(args[1])) {
+            const temp = args[0];
+            args[0] = args[1];
+            args[1] = temp;
+        }
+
+        // If the first number is 0, put in on top of the queue and remove it from the previous position
+        if (Number(args[0]) === 0) {
+            const song: Track = dispatcher.queue[Number(args[1]) - 1];
+            dispatcher.queue.splice(Number(args[1]) - 1, 1);
+            dispatcher.queue.unshift(song);
+            return await message.reply({ embeds: [client.util.embed("Successfully moved song", Colors.Green, `Moved **${song.info.title}** to the top of the queue`)] });
+        } else {
+            // Swap the songs
+            const song1: Track = dispatcher.queue[Number(args[0]) - 1];
+            const song2: Track = dispatcher.queue[Number(args[1]) - 1];
+            if (!song1 || !song2) return await message.reply({ embeds: [client.util.embed("Not enough songs in queue", Colors.Red, "Check the queue and try again")] });
+            dispatcher.queue[Number(args[0]) - 1] = song2;
+            dispatcher.queue[Number(args[1]) - 1] = song1;
+            return await message.reply({ embeds: [client.util.embed("Successfully swapped songs", Colors.Green, `Swapped **${song1.info.title}** with **${song2.info.title}**`)] });
+        }
+
     }});
