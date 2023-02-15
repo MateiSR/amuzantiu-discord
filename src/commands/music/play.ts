@@ -68,8 +68,11 @@ export default new Command({
             if (!client.manager.util.isSpotify(query)) var result = await node.rest.resolve(query) as LavalinkResponse | null;
             else {
                 client.manager.util.fetchSpotifyTracks(query).then(async tracks => {
+                    // Handle null return
+                    if (!tracks) return await interaction.followUp({ embeds: [client.util.embed("No tracks found", Colors.Red, "There was an error processing the Spotify link provided")] });
                     // handle like isPlaylist or single tracks depending in tracks.size
-                    const trackStr = tracks.shift();
+                    const trackObj = tracks.shift();
+                    const trackStr = trackObj.trackSearch;
                     const result = await node.rest.resolve(`ytsearch:${trackStr}`) as LavalinkResponse | null;
                     if (!result || result["loadType"] == "NO_MATCHES" || result["loadType"] == "LOAD_FAILED") return;
                     const track = result.tracks.shift();
@@ -84,7 +87,8 @@ export default new Command({
                     });
                     const isPlaylist = tracks.length >= 2;
                     if (isPlaylist) {
-                    tracks.forEach(async trackStr => {
+                    tracks.forEach(async trackObj => {
+                        const trackStr = trackObj.trackSearch;
                         client.logger.debug(`Handling spotify track: ${trackStr}`);
                         const result = await node.rest.resolve(`ytsearch:${trackStr}`) as LavalinkResponse | null;
                         if (!result || result["loadType"] == "NO_MATCHES" || result["loadType"] == "LOAD_FAILED") return;

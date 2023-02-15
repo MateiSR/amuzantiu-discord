@@ -63,8 +63,11 @@ export default new PrefixCommand({
             if (!client.manager.util.isSpotify(query)) var result = await node.rest.resolve(query) as LavalinkResponse | null;
             else {
                 client.manager.util.fetchSpotifyTracks(query).then(async tracks => {
+                    // Handle null return
+                    if (!tracks) return await message.reply({ embeds: [client.util.embed("No tracks found", Colors.Red, "There was an error processing the Spotify link provided")] });
                     // handle like isPlaylist or single tracks depending in tracks.size
-                    const trackStr = tracks.shift();
+                    const trackObj = tracks.shift();
+                    const trackStr = trackObj.trackSearch;
                     const result = await node.rest.resolve(`ytsearch:${trackStr}`) as LavalinkResponse | null;
                     if (!result || result["loadType"] == "NO_MATCHES" || result["loadType"] == "LOAD_FAILED") return;
                     const track = result.tracks.shift();
@@ -79,20 +82,20 @@ export default new PrefixCommand({
                     });
                     const isPlaylist = tracks.length >= 2;
                     if (isPlaylist) {
-                    tracks.forEach(async trackStr => {
-                        client.logger.debug(`Handling spotify track: ${trackStr}`);
-                        const result = await node.rest.resolve(`ytsearch:${trackStr}`) as LavalinkResponse | null;
-                        if (!result || result["loadType"] == "NO_MATCHES" || result["loadType"] == "LOAD_FAILED") return;
-                        const track = result.tracks.shift();
-                        track.info.author = message.author.id;
-                        res = await client.manager.handleDispatcher({
-                            guildId: message.guild.id,
-                            guild: message.guild,
-                            VoiceChannelId: message.member.voice.channelId,
-                            TextChannelId: message.channel.id,
-                            track: track,
-                            member: message.member
-                        });
+                        tracks.forEach(async trackObj => {
+                            const trackStr = trackObj.trackSearch;
+                            const result = await node.rest.resolve(`ytsearch:${trackStr}`) as LavalinkResponse | null;
+                            if (!result || result["loadType"] == "NO_MATCHES" || result["loadType"] == "LOAD_FAILED") return;
+                            const track = result.tracks.shift();
+                            track.info.author = message.author.id;
+                            res = await client.manager.handleDispatcher({
+                                guildId: message.guild.id,
+                                guild: message.guild,
+                                VoiceChannelId: message.member.voice.channelId,
+                                TextChannelId: message.channel.id,
+                                track: track,
+                                member: message.member
+                            });
                     });
                     }
 

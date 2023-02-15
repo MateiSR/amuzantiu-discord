@@ -46,17 +46,19 @@ export default class MusicUtil {
 
     // fetch spotify tracks
     public fetchSpotifyTracks = async (url: string) => {
-        const tracks = await getTracks(url);
-        if (!tracks) return null;
-        const results = new Array<string>();
-        tracks.forEach(element => {
-            let result = new Array<string>();
-            result.push(element.name + " - ");
-            element.artists.forEach(artist => {
-                result.push(artist.name + ", ");
+        const results = await getTracks(url).then((data: any) => {
+            return data?.map((track: any) => {
+                return {
+                    title: track.name,
+                    trackSearch: track.name + " " + track.artist,
+                };
             });
-            results.push(result.join(" "));
-        });
+        }).catch(
+            (err: any) => {
+                client.logger.error(err);
+                return null;
+            }
+        ) || null;
         return results;
     }
 
