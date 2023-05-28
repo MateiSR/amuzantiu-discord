@@ -10,7 +10,7 @@ export default new PrefixCommand({
 
         const dispatcher = await client.manager.get(message.guild.id);
         // Check if dispatcher exists
-        if (!dispatcher || !dispatcher.current) return await message.reply({ embeds: [client.util.embed("No song is playing", Colors.Red, "Please play a song first")] });
+        if (!dispatcher) return await message.reply({ embeds: [client.util.embed("No song is playing", Colors.Red, "Please play a song first")] });
         // Check if there is a previous song
         if (!dispatcher.previous) return await message.reply({ embeds: [client.util.embed("No previous song", Colors.Red, "There is no previous song to play")] });
         // Check if user is in a voice channel
