@@ -20,7 +20,9 @@ export default new PrefixCommand({
         // Send success message
         await message.reply({ embeds: [client.util.embed("Playing previous song", Colors.Green, `Playing **[${dispatcher.previous.info.title}](${dispatcher.previous.info.uri})**`)] });
         // Play previous song
+        const isPlaying = dispatcher.current ? true : false;
         dispatcher.playPrevious();
+        if (!isPlaying) dispatcher.play();
         return;
 
 }});
