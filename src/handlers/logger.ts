@@ -1,4 +1,6 @@
 import chalk from 'chalk';
+require("dotenv").config();
+const currentEnv = process.env.environment || "dev";
 
 export default class Logger {
 
@@ -19,6 +21,7 @@ export default class Logger {
     }
 
     public debug(...message: any[]) {
+        if (currentEnv !== "dev") return;
         console.log(chalk.magenta(`[DEBUG] ${message.join(' ')}`));
     }
 
