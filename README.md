@@ -7,11 +7,11 @@ Amuzantiu is a simple Discord bot built using the Discord.js library. The bot ca
 To install and run the bot on your own server, follow these steps:
 
 1. Clone the repository to your local machine.
-2. Install the necessary dependencies using `npm install`.
+2. Install the necessary dependencies using `yarn install`.
 3. Create a new application and bot account in the [Discord Developer Portal](https://discord.com/developers/applications).
 4. Copy the bot token and add it to a `.env` file in the root of the project.
 5. Update the `config.json` file with your desired settings.
-6. Run the bot using `npm start`.
+6. Run the bot using `yarn run start`.
 
 ## Commands
 
@@ -22,6 +22,7 @@ Amuzantiu currently supports the following commands:
 - `a ban @user`: Bans the mentioned user from the server.
 - `a play [song]`: Plays the requested song in the voice channel the user is currently in.
 - `a stop`: Stops the current song and clears the queue.
+- and many more! the bot supports both slash commands and prefix commands, be sure to use 'a help' or '/help' to see all the commands!
 
 ## Contributing
 
