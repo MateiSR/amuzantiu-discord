@@ -28,8 +28,8 @@ export default new Event("messageCreate", async (message) => {
     // Manually handle permission checks
     if (command.defaultMemberPermissions) {
         const channel = message.channel as TextChannel;
-        if (!channel.permissionsFor(message.member).has(command.defaultMemberPermissions)) return message.reply("You do not have permission to use this command");
-        if (!channel.permissionsFor(client.user.id).has(command.defaultMemberPermissions)) return message.reply("The bot does not have permission to use this command");
+        if (!channel.permissionsFor(message.member).has(command.defaultMemberPermissions)) return message.reply("You do not have enough permissions to use this command.");
+        if (!channel.permissionsFor(client.user.id).has(command.defaultMemberPermissions)) return message.reply("The bot does not have enough permissions to use this command.");
     }
 
     // Run command
