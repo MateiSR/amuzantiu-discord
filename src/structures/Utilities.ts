@@ -1,5 +1,7 @@
-import { ColorResolvable, EmbedBuilder } from 'discord.js';
+import { ColorResolvable, EmbedBuilder, Message } from 'discord.js';
+import { client } from '../index';
 
+require("dotenv").config();
 export default class Util {
 
     public embed = (title: string, color: ColorResolvable, description?: string) => {
@@ -80,6 +82,18 @@ export default class Util {
             [array[i], array[j]] = [array[j], array[i]];
         }
         return array;
+    }
+
+    public isBotCommandCall = (message: Message) => {
+        if (!message.content) return false;
+        // Check if message starts with prefix
+        if (!message.content.startsWith(process.env.prefix)) return false;
+        const args = message.content.slice(process.env.prefix.length).trim().split(/ +/);
+        const commandName = args.shift().toLowerCase();
+
+        // Check if the command exists
+        const command = client.prefixCommands.get(commandName) || client.prefixCommands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+        return command ? true : false;
     }
 
 }
