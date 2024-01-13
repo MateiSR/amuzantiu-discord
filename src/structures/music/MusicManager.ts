@@ -5,11 +5,13 @@ import MusicDispatcher from "./MusicDispatcher";
 import { ManagerOptions } from "../../typings/music/ManagerOptions";
 import MusicUtil from './MusicUtil';
 import { Client } from "genius-lyrics";
+import CustomTrackManager from "./CustomTrackManager";
 
 export default class MusicManager extends Collection<string, MusicDispatcher> { // guildId, Dispatcher
 
     client: ExtendedClient = client;
     util: MusicUtil = new MusicUtil();
+    TrackManager: CustomTrackManager = new CustomTrackManager();
     genius: Client;
 
     constructor() {

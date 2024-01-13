@@ -1,0 +1,35 @@
+{
+    "_comment": "Exports to CustomMusicTrack",
+    "map": [
+        {
+            "url": "https://www.youtube.com/watch?v=SoOL0hNQFbU",
+            "callWords": ["tartoasa", "târtoasa"],
+            "filter": "nightcore",
+            "emote": "🐢"
+        },
+        {
+            "url": "https://www.youtube.com/watch?v=IZc5KQZtqXs",
+            "callWords": ["decibeli"],
+            "emote": "🔊"
+        },
+        {
+            "url": "https://www.youtube.com/watch?v=OSSsZDE1k2E",
+            "callWords": ["iara beau"],
+            "emote": "🍺"
+        },
+        {
+            "url": "http://asculta.radiotaraf.com:7100/",
+            "callWords": ["taraf"],
+            "emote": "🍻"
+        },
+        {
+            "url": "https://www.youtube.com/watch?v=uLCOApx8MHE",
+            "callWords": ["colaj"]
+        },
+        {
+            "url": "https://www.youtube.com/watch?v=6FxpfHX5q0M",
+            "callWords": ["ciocolata"],
+            "emote": "🍫"
+        }
+    ]
+}
