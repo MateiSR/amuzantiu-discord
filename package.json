@@ -1,6 +1,6 @@
 {
   "name": "amuzantiu-discord",
-  "version": "2.2.5",
+  "version": "2.2.7",
   "description": "Discord bot written in discord.js - now rewritten in TypeScript, with all the cool features",
   "main": "src/index.js",
   "scripts": {
