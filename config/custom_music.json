@@ -24,12 +24,13 @@
         },
         {
             "url": "https://www.youtube.com/watch?v=uLCOApx8MHE",
-            "callWords": ["colaj"]
+            "callWords": ["colaj2"],
+            "emote": "🪩"
         },
         {
-            "url": "https://www.youtube.com/watch?v=6FxpfHX5q0M",
-            "callWords": ["ciocolata"],
-            "emote": "🍫"
+            "url": "https://s0.mateisr.com/files/colaj_manele.mp3",
+            "callWords": ["colaj", "manele"],
+            "emote": "🥁"
         }
     ]
 }
