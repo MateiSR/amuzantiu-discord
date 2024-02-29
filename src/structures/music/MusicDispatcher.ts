@@ -78,6 +78,8 @@ export default class MusicDispatcher {
 
     onTrackException = async () => {
         const channel = this.guild.channels.cache.get(this.textChannelId) as TextChannel;
+        // disable loop if enabled (prevents the exception message from being spammed
+        this.loop = "none";
         // send embeds corresponding to the exception, and the track
         await channel.send({embeds: [client.util.embed("⚠️   Exception encountered while trying to play track", Colors.Red, `[${this.current.info.title}](${this.current.info.uri})`)]});
         this.client.logger.debug(`Exception encountered while trying to play track ${this.current.info.title}`);
