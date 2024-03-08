@@ -31,6 +31,11 @@
 			"url": "https://s0.mateisr.com/files/colaj_manele.mp3",
 			"callWords": ["colaj", "manele"],
 			"emote": "🥁"
+		},
+		{
+			"url": "https://www.youtube.com/watch?v=k85mRPqvMbE",
+			"callWords": ["crazy frog"],
+			"emote": "🐸"
 		}
 	]
 }

@@ -34,8 +34,7 @@ export default new Event("messageCreate", async (message: Message) => {
         )) as LavalinkResponse | null;
         if (!result || result.loadType == "empty" || result.loadType == "error")
           return;
-        const searchResult = result.data as Track[];
-        const track = searchResult.shift();
+        const track = result.data as Track;
         // Handle dispatcher
         const res = await client.manager.handleDispatcher({
           guildId: guild.id,
