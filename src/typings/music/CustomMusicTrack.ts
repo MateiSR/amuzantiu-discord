@@ -1,6 +1,6 @@
 export type CustomMusicTrack = {
-    url: string;
-    callWords: string[];
-    filter?: string;
-    emote?: string;
-}
+  url: string;
+  callWords: string[];
+  filter?: string;
+  emote?: string;
+};
