@@ -24,7 +24,7 @@
 		"isomorphic-unfetch": "^3.1.0",
 		"node-fetch": "^3.3.1",
 		"shoukaku": "^4.0.1",
-		"spotify-url-info": "^3.2.3",
+		"spotify-url-info": "^3.2.15",
 		"unfetch": "^5.0.0"
 	},
 	"devDependencies": {
