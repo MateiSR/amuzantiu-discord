@@ -15,7 +15,7 @@ jobs:
           fetch-depth: 0
 
       - name: Push to dokku
-        uses: obrassard/action-dokku-deploy@cloudflared
+        uses: MateiSR/action-dokku-cloudflared@master
         with:
           dokku_repo: "ssh://dokku@dokku.mateisr.com:22/discord-bot"
           ssh_key: ${{ secrets.SSH_KEY }}
