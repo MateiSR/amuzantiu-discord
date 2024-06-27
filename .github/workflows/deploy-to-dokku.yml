@@ -15,7 +15,10 @@ jobs:
           fetch-depth: 0
 
       - name: Push to dokku
-        uses: dokku/github-action@master
+        uses: obrassard/action-dokku-deploy@cloudflared
         with:
-          git_remote_url: "ssh://dokku@dokku.mateisr.com:22/discord-bot"
-          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          dokku_repo: "ssh://dokku@dokku.mateisr.com:22/discord-bot"
+          ssh_key: ${{ secrets.SSH_KEY }}
+          cloudflared_client_id: ${{ secrets.CLOUDFLARED_CLIENT_ID }}
+          cloudflared_client_secret: ${{ secrets.CLOUDFLARED_CLIENT_SECRET }}
+          deploy_branch: "master"
