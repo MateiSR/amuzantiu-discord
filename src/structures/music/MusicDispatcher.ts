@@ -2,7 +2,7 @@ import { ExtendedClient } from "../Client";
 import { DispatcherOptions } from "../../typings/music/DispatcherOptions";
 import { client } from "../..";
 import { Colors, Guild, TextChannel } from "discord.js";
-import { Player, Track } from "shoukaku";
+import { Exception, Player, Track, TrackExceptionEvent } from "shoukaku";
 import { filters } from "./MusicAssets";
 
 export default class MusicDispatcher {
@@ -29,7 +29,7 @@ export default class MusicDispatcher {
     this.player
       .on("start", () => this.onTrackStart())
       .on("end", () => this.onTrackEnd())
-      .on("exception", () => this.onTrackException());
+      .on("exception", (exception: TrackExceptionEvent) => this.onTrackException(exception));
   }
 
   onTrackStart = async () => {
@@ -99,7 +99,7 @@ export default class MusicDispatcher {
     }
   };
 
-  onTrackException = async () => {
+  onTrackException = async (exception: TrackExceptionEvent) => {
     const channel = this.guild.channels.cache.get(
       this.textChannelId,
     ) as TextChannel;
@@ -116,7 +116,7 @@ export default class MusicDispatcher {
       ],
     });
     this.client.logger.debug(
-      `Exception encountered while trying to play track ${this.current.info.title}`,
+      `Exception encountered while trying to play track ${this.current.info.title}: ${exception} in ${this.guild.name} (${this.guild.id})`,
     );
   };
 
