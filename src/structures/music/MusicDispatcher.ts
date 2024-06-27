@@ -116,7 +116,7 @@ export default class MusicDispatcher {
       ],
     });
     this.client.logger.debug(
-      `Exception encountered while trying to play track ${this.current.info.title}: ${exception} in ${this.guild.name} (${this.guild.id})`,
+      `Exception encountered while trying to play track ${this.current.info.title}: ${exception.exception.cause} with ${exception.exception.message} in ${this.guild.name} (${this.guild.id})`,
     );
   };
 
