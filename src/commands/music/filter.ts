@@ -56,13 +56,13 @@ export default new Command({
       });
     // check if bot is in a voice channel
     const dispatcher = await client.manager.get(interaction.guild.id);
-    if (!dispatcher || !dispatcher.current)
+    if (!dispatcher)
       return await interaction.followUp({
         embeds: [
           client.util.embed(
-            "No song is playing",
+            "Bot is not connected to a voice channel",
             Colors.Red,
-            "Please play a song first",
+            "Please connect the bot to a voice channel and try again",
           ),
         ],
       });

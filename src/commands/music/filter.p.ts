@@ -23,13 +23,13 @@ export default new PrefixCommand({
       });
     // check if bot is in a voice channel
     const dispatcher = await client.manager.get(message.guild.id);
-    if (!dispatcher || !dispatcher.current)
+    if (!dispatcher)
       return await message.reply({
         embeds: [
           client.util.embed(
-            "No song is playing",
+            "Bot is not connected to a voice channel",
             Colors.Red,
-            "Please play a song first",
+            "Please connect the bot to a voice channel and try again",
           ),
         ],
       });
