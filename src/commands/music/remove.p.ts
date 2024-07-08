@@ -4,6 +4,7 @@ import { PrefixCommand } from "../../structures/PrefixCommand";
 export default new PrefixCommand({
   name: "remove",
   description: "removes a song from the queue",
+  aliases: ["rm"],
   run: async ({ client, message, args }) => {
     const bot = await message.guild.members.fetch(client.user.id);
     // check if member is in a voice channel
