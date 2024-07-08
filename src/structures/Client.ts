@@ -7,8 +7,7 @@ import {
   GatewayIntentBits,
 } from "discord.js";
 import { CommandType } from "../typings/Command";
-import glob from "glob";
-import { promisify } from "util";
+import { glob } from "glob";
 import { RegisterCommandsOptions } from "../typings/client";
 import { Event } from "./Event";
 import { PrefixCommandType } from "../typings/PrefixCommand";
@@ -19,8 +18,6 @@ import Util from "./Utilities";
 import MusicManager from "./music/MusicManager";
 import { version } from "../../package.json";
 import CooldownManager from "./CooldownManager";
-
-const globPromise = promisify(glob);
 
 export class ExtendedClient extends Client {
   commands: Collection<string, CommandType> = new Collection();
@@ -72,10 +69,8 @@ export class ExtendedClient extends Client {
     // Commands
     const slashCommands: ApplicationCommandDataResolvable[] =
       new Array<ApplicationCommandDataResolvable>();
-    const commandFiles = await globPromise(
-      `${__dirname}/../commands/*/*{.ts,.js}`,
-    );
-    const prefixCommandFiles = await globPromise(
+    const commandFiles = await glob(`${__dirname}/../commands/*/*{.ts,.js}`);
+    const prefixCommandFiles = await glob(
       `${__dirname}/../commands/*/*.p{.ts,.js}`,
     );
     commandFiles.forEach(async (filePath) => {
@@ -110,7 +105,7 @@ export class ExtendedClient extends Client {
     });
 
     // Event
-    const eventFiles = await globPromise(`${__dirname}/../events/*{.ts,.js}`);
+    const eventFiles = await glob(`${__dirname}/../events/*{.ts,.js}`);
     eventFiles.forEach(async (filePath) => {
       const event: Event<keyof ClientEvents> = await this.importFile(filePath);
       this.on(event.event, event.run);
