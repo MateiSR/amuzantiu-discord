@@ -17,7 +17,7 @@ jobs:
       - name: Push to dokku
         uses: MateiSR/action-dokku-cloudflared@master
         with:
-          dokku_repo: "ssh://dokku@dokku.mateisr.com:22/discord-bot"
+          dokku_repo: "ssh://dokku@deploy.mateisr.com:22/discord-bot"
           ssh_key: ${{ secrets.SSH_KEY }}
           cloudflared_client_id: ${{ secrets.CLOUDFLARED_CLIENT_ID }}
           cloudflared_client_secret: ${{ secrets.CLOUDFLARED_CLIENT_SECRET }}
