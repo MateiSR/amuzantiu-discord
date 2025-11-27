@@ -35,9 +35,17 @@ export default new Command({
         ],
       });
 
+    // Discord embed description limit is 4096 characters
+    const MAX_LENGTH = 4096;
+    let displayLyrics = lyrics;
+
+    if (lyrics.length > MAX_LENGTH) {
+      displayLyrics = lyrics.substring(0, MAX_LENGTH - 50) + "\n\n...\n\n*Lyrics too long to display completely*";
+    }
+
     // send the lyrics
     await interaction.followUp({
-      embeds: [client.util.embed("Lyrics", Colors.Purple, lyrics)],
+      embeds: [client.util.embed("Lyrics", Colors.Purple, displayLyrics)],
     });
   },
 });

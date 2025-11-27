@@ -17,7 +17,20 @@ export default class MusicManager extends Collection<string, MusicDispatcher> {
 
   constructor() {
     super();
-    this.genius = new Client();
+    // Initialize Genius client with API key if available
+    const geniusToken = process.env.GENIUS_API_TOKEN;
+    this.genius = new Client(geniusToken);
+
+    // Log initialization status
+    if (client?.logger) {
+      if (geniusToken) {
+        client.logger.info("Genius API initialized with access token");
+      } else {
+        client.logger.warn(
+          "Genius API initialized without access token - rate limits may apply",
+        );
+      }
+    }
   }
 
   async handleDispatcher(options: ManagerOptions) {

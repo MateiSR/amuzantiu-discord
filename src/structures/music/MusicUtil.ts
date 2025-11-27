@@ -72,10 +72,36 @@ export default class MusicUtil {
   };
 
   // fetch lyrics from genius
-  public fetchLyrics = async (query: string) => {
-    const songs = await client.manager.genius.songs.search(query);
-    if (!songs || !songs.length) return null;
-    const lyrics = await songs[0].lyrics();
-    return lyrics || null;
+  public fetchLyrics = async (query: string): Promise<string | null> => {
+    try {
+      // Validate query
+      if (!query || query.trim().length === 0) {
+        client.logger.warn("fetchLyrics called with empty query");
+        return null;
+      }
+
+      // Search for songs
+      const songs = await client.manager.genius.songs.search(query);
+
+      // Check if we got any results
+      if (!songs || songs.length === 0) {
+        client.logger.debug(`No lyrics found for query: ${query}`);
+        return null;
+      }
+
+      // Fetch lyrics from the first result
+      const lyrics = await songs[0].lyrics();
+
+      // Validate lyrics response
+      if (!lyrics || lyrics.trim().length === 0) {
+        client.logger.debug(`Empty lyrics returned for query: ${query}`);
+        return null;
+      }
+
+      return lyrics;
+    } catch (error) {
+      client.logger.error(`Error fetching lyrics for "${query}":`, error);
+      return null;
+    }
   };
 }
