@@ -73,17 +73,19 @@ export class ExtendedClient extends Client {
     const prefixCommandFiles = await glob(
       `${__dirname}/../commands/*/*.p{.ts,.js}`,
     );
-    commandFiles.forEach(async (filePath) => {
-      if (prefixCommandFiles.includes(filePath)) return;
+
+    // Load slash commands
+    for (const filePath of commandFiles) {
+      if (prefixCommandFiles.includes(filePath)) continue;
       const command: CommandType = await this.importFile(filePath);
-      if (!command.name) return;
+      if (!command.name) continue;
       // Set command category
       command.category = filePath.split("/")[filePath.split("/").length - 2];
       this.logger.log(`Registering SLASH command: ${command.name}`);
 
       this.commands.set(command.name, command);
       slashCommands.push(command);
-    });
+    }
 
     this.on("ready", () => {
       this.registerCommands({
@@ -93,23 +95,22 @@ export class ExtendedClient extends Client {
     });
 
     // Prefix commands
-
-    prefixCommandFiles.forEach(async (filePath) => {
+    for (const filePath of prefixCommandFiles) {
       const command: PrefixCommandType = await this.importFile(filePath);
-      if (!command.name) return;
+      if (!command.name) continue;
       // Set command category
       command.category = filePath.split("/")[filePath.split("/").length - 2];
       this.logger.log(`Registering PREFIX command: ${command.name}`);
 
       this.prefixCommands.set(command.name, command);
-    });
+    }
 
     // Event
     const eventFiles = await glob(`${__dirname}/../events/*{.ts,.js}`);
-    eventFiles.forEach(async (filePath) => {
+    for (const filePath of eventFiles) {
       const event: Event<keyof ClientEvents> = await this.importFile(filePath);
       this.on(event.event, event.run);
-    });
+    }
   }
 
   // Set bot activity
