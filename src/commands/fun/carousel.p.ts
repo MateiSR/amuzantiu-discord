@@ -1,9 +1,10 @@
-import { ChannelType, GuildVoiceChannelResolvable } from "discord.js";
+import { ChannelType, GuildVoiceChannelResolvable, PermissionFlagsBits } from "discord.js";
 import { PrefixCommand } from "../../structures/PrefixCommand";
 
 export default new PrefixCommand({
   name: "carousel",
   description: "move a member around voice channels!",
+  defaultMemberPermissions: [PermissionFlagsBits.MoveMembers],
   async run({ message, args, client }) {
     if (!args.length) return;
     // get member from args

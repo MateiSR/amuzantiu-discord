@@ -3,12 +3,14 @@ import {
   ChannelType,
   GuildVoiceChannelResolvable,
   GuildMember,
+  PermissionFlagsBits,
 } from "discord.js";
 import { Command } from "../../structures/Command";
 
 export default new Command({
   name: "carousel",
   description: "move a member around voice channels!",
+  defaultMemberPermissions: [PermissionFlagsBits.MoveMembers],
   options: [
     {
       name: "member",
