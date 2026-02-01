@@ -2,7 +2,7 @@
 	"name": "amuzantiu-discord",
 	"version": "2.4.5",
 	"description": "Discord bot written in discord.js - now rewritten in TypeScript, with all the cool features",
-	"main": "src/index.ts",
+	"main": "src/index.js",
 	"scripts": {
 		"start": "ts-node src/index.ts",
 		"start:dev": "ts-node-dev --respawn --transpile-only --cls src/index.ts",
