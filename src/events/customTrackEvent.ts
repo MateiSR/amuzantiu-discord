@@ -51,7 +51,7 @@ export default new Event("messageCreate", async (message: Message) => {
         // Set loop
         dispatcher.loop = "track";
         // Set nightcore filter
-        if (customTrack.filter) dispatcher.setFilter(customTrack.filter);
+        if (customTrack.filter) await dispatcher.setFilter(customTrack.filter);
         // React to message
         if (customTrack.emote) message.react(customTrack.emote);
         return;

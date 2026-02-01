@@ -194,10 +194,10 @@ export default class MusicDispatcher {
 			return;
 		}
 		// if already has filters, remove them
-		if (this.player.filters) this.player.clearFilters();
+		if (this.player.filters) await this.player.clearFilters();
 		const filter = filters.get(filterOption) || null;
 		if (!filter) return new Error("Invalid filter option");
-		this.player.setFilters(filter);
+		await this.player.setFilters(filter);
 	}
 
 	async switchTextChannel(channelId: string) {

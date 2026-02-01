@@ -73,7 +73,7 @@ export default new PrefixCommand({
 
     // if filter == off
     if (filter === "off") {
-      dispatcher.player.clearFilters();
+      await dispatcher.player.clearFilters();
       return await message.reply({
         embeds: [
           client.util.embed(
@@ -87,7 +87,7 @@ export default new PrefixCommand({
 
     // set filter shoukaku
     try {
-      dispatcher.setFilter(filter);
+      await dispatcher.setFilter(filter);
       await message.reply({
         embeds: [
           client.util.embed(

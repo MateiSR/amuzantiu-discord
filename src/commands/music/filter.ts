@@ -83,7 +83,7 @@ export default new Command({
 
     // if filter == off
     if (filter === "off") {
-      dispatcher.player.clearFilters();
+      await dispatcher.player.clearFilters();
       return await interaction.followUp({
         embeds: [
           client.util.embed(
@@ -97,7 +97,7 @@ export default new Command({
 
     // set filter shoukaku
     try {
-      dispatcher.setFilter(filter);
+      await dispatcher.setFilter(filter);
       await interaction.followUp({
         embeds: [
           client.util.embed(
