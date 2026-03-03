@@ -1,40 +1,40 @@
 {
-	"name": "amuzantiu-discord",
-	"version": "2.4.5",
-	"description": "Discord bot written in discord.js - now rewritten in TypeScript, with all the cool features",
-	"main": "src/index.js",
-	"scripts": {
-		"start": "ts-node src/index.ts",
-		"start:dev": "ts-node-dev --respawn --transpile-only --cls src/index.ts",
-		"start:prod": "node src/index.js",
-		"build": "tsc",
-		"watch": "tsc -w"
-	},
-	"repository": "https://github.com/MateiSR/amuzantiu-discord.git",
-	"keywords": [],
-	"author": "Matei <mateisr@proton.me>",
-	"license": "ISC",
-	"dependencies": {
-		"chalk": "4.1.2",
-		"discord.js": "^14.11.0",
-		"dotenv": "^16.3.1",
-		"genius-lyrics": "^4.4.3",
-		"glob": "^10.4.3",
-		"isomorphic-unfetch": "^3.1.0",
-		"node-fetch": "^3.3.1",
-		"shoukaku": "4.0.1",
-		"spotify-url-info": "^3.2.15",
-		"unfetch": "^5.0.0"
-	},
-	"devDependencies": {
-		"@types/glob": "^8.1.0",
-		"@types/node": "^20.3.3",
-		"@typescript-eslint/eslint-plugin": "^5.62.0",
-		"@typescript-eslint/parser": "^5.62.0",
-		"eslint": "^8.44.0",
-		"prettier": "^3.3.2",
-		"ts-node": "^10.9.1",
-		"ts-node-dev": "^2.0.0",
-		"typescript": "^5.5.3"
-	}
+  "name": "amuzantiu-discord",
+  "version": "2.4.5",
+  "description": "Discord bot written in discord.js - now rewritten in TypeScript, with all the cool features",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "start:dev": "ts-node-dev --respawn --transpile-only --cls src/index.ts",
+    "start:prod": "node src/index.js",
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "repository": "https://github.com/MateiSR/amuzantiu-discord.git",
+  "keywords": [],
+  "author": "Matei <mateisr@proton.me>",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "4.1.2",
+    "discord.js": "^14.25.1",
+    "dotenv": "^16.3.1",
+    "genius-lyrics": "^4.4.3",
+    "glob": "^10.4.3",
+    "isomorphic-unfetch": "^3.1.0",
+    "node-fetch": "^3.3.1",
+    "shoukaku": "4.3.0",
+    "spotify-url-info": "^3.2.15",
+    "unfetch": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/node": "^20.3.3",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "eslint": "^8.44.0",
+    "prettier": "^3.3.2",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.5.3"
+  }
 }
