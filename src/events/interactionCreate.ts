@@ -1,13 +1,13 @@
-import { Colors, CommandInteractionOptionResolver } from "discord.js";
-import { client } from "..";
-import { Event } from "../structures/Event";
-import { ExtendedInteraction } from "../typings/Command";
+import { Colors, CommandInteractionOptionResolver } from "discord.js"
+import { client } from ".."
+import { Event } from "../structures/Event"
+import { ExtendedInteraction } from "../typings/Command"
 
-export default new Event("interactionCreate", async (interaction) => {
-  if (interaction.isCommand()) {
-    await interaction.deferReply();
-    const command = client.commands.get(interaction.commandName);
-    if (!command) return interaction.followUp("**Command does not exist**");
+export default new Event("interactionCreate", async interaction => {
+  if (interaction.isChatInputCommand()) {
+    await interaction.deferReply()
+    const command = client.commands.get(interaction.commandName)
+    if (!command) return interaction.followUp("**Command does not exist**")
 
     try {
       // If command does have a cooldown
@@ -16,14 +16,14 @@ export default new Event("interactionCreate", async (interaction) => {
         const userCooldown = client.cooldowns.checkCooldown(
           command.name,
           interaction.user.id,
-        );
+        )
         if (userCooldown) {
-          const currentTime = Date.now();
-          const expirationTime = userCooldown + command.cooldown;
+          const currentTime = Date.now()
+          const expirationTime = userCooldown + command.cooldown
           const humanizedCooldown = client.util.formatTime(
             expirationTime - currentTime,
             true,
-          );
+          )
           if (currentTime < expirationTime) {
             return interaction.followUp({
               embeds: [
@@ -33,17 +33,17 @@ export default new Event("interactionCreate", async (interaction) => {
                   `Please wait **${humanizedCooldown}** before using this command again`,
                 ),
               ],
-            });
+            })
           }
         }
 
         // Check if command category is music
         if (command.category === "music") {
           // get dispatcher
-          const dispatcher = await client.manager.get(interaction.guild.id);
+          const dispatcher = await client.manager.get(interaction.guild.id)
           if (dispatcher) {
             // Switch text channel
-            dispatcher.switchTextChannel(interaction.channelId);
+            dispatcher.switchTextChannel(interaction.channelId)
           }
         }
 
@@ -52,22 +52,22 @@ export default new Event("interactionCreate", async (interaction) => {
           args: interaction.options as CommandInteractionOptionResolver,
           client,
           interaction: interaction as ExtendedInteraction,
-        });
+        })
         client.cooldowns.handleCooldown(
           command.name,
           interaction.user.id,
           command.cooldown,
-        );
-        return;
+        )
+        return
       }
 
       // Check if command category is music
       if (command.category === "music") {
         // get dispatcher
-        const dispatcher = await client.manager.get(interaction.guild.id);
+        const dispatcher = await client.manager.get(interaction.guild.id)
         if (dispatcher) {
           // Switch text channel
-          dispatcher.switchTextChannel(interaction.channelId);
+          dispatcher.switchTextChannel(interaction.channelId)
         }
       }
 
@@ -75,12 +75,12 @@ export default new Event("interactionCreate", async (interaction) => {
         args: interaction.options as CommandInteractionOptionResolver,
         client,
         interaction: interaction as ExtendedInteraction,
-      });
+      })
     } catch (error) {
-      client.logger.error("An error occured while executing a command", error);
+      client.logger.error("An error occured while executing a command", error)
       interaction.followUp(
         "**An error has occured while running this command**",
-      );
+      )
     }
   }
-});
+})

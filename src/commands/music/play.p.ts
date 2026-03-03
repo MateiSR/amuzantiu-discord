@@ -1,19 +1,19 @@
-import { PrefixCommand } from "../../structures/PrefixCommand";
-import { LavalinkResponse, Playlist, Track } from "shoukaku";
-import { Colors, Guild } from "discord.js";
+import { PrefixCommand } from "../../structures/PrefixCommand"
+import { LavalinkResponse, Playlist, Track } from "shoukaku"
+import { Colors, Guild, TextChannel } from "discord.js"
 
 // check if query is a url
 const isURL = (url: string) => {
   try {
-    new URL(url);
-    return true;
+    new URL(url)
+    return true
   } catch {
-    return false;
+    return false
   }
-};
+}
 
 const trackPlayEmbed = (client, guildId: string, track: Track) => {
-  const res = client.manager.get(guildId);
+  const res = client.manager.get(guildId)
   return client.util
     .embed(
       "Track added to queue",
@@ -39,8 +39,8 @@ const trackPlayEmbed = (client, guildId: string, track: Track) => {
         value: res?.queue.length.toString(),
         inline: true,
       },
-    );
-};
+    )
+}
 
 export default new PrefixCommand({
   name: "play",
@@ -57,13 +57,13 @@ export default new PrefixCommand({
             "Please provide a query and try again",
           ),
         ],
-      });
+      })
 
-    const guild = message.guild as Guild;
-    const bot = await guild.members.fetch(client.user.id);
+    const guild = message.guild as Guild
+    const bot = await guild.members.fetch(client.user.id)
     // check if member is in a voice channel
     if (!message.member.voice.channelId)
-      return await message.channel.send({
+      return await (message.channel as TextChannel).send({
         embeds: [
           client.util.embed(
             "You are not in a voice channel",
@@ -71,13 +71,13 @@ export default new PrefixCommand({
             "Please join a voice channel and try again",
           ),
         ],
-      });
+      })
     // check if bot is in the same voice channel as the user
     if (
       bot.voice.channelId &&
       message.member.voice.channelId !== bot.voice.channelId
     )
-      return await message.channel.send({
+      return await (message.channel as TextChannel).send({
         embeds: [
           client.util.embed(
             "You are not in my voice channel",
@@ -85,10 +85,10 @@ export default new PrefixCommand({
             "Please join my voice channel and try again",
           ),
         ],
-      });
+      })
     // check if query is a url
-    const query = args[0];
-    const node = client.shoukaku.options.nodeResolver(client.shoukaku.nodes);
+    const query = args[0]
+    const node = client.shoukaku.options.nodeResolver(client.shoukaku.nodes)
 
     /*
     /* removed due to redundancy
@@ -98,10 +98,10 @@ export default new PrefixCommand({
     if (isURL(query)) {
       // if query isn't spotify
       if (!client.manager.util.isSpotify(query))
-        var result = await node.rest.resolve(query);
+        var result = await node.rest.resolve(query)
       else {
         // for spotify URIs
-        client.manager.util.fetchSpotifyTracks(query).then(async (tracks) => {
+        client.manager.util.fetchSpotifyTracks(query).then(async tracks => {
           // Handle null return
           if (!tracks)
             return await message.reply({
@@ -112,20 +112,20 @@ export default new PrefixCommand({
                   "There was an error processing the Spotify link provided",
                 ),
               ],
-            });
+            })
           // handle like isPlaylist or single tracks depending in tracks.size
-          const trackObj = tracks.shift();
-          const trackStr = trackObj.trackSearch;
-          const result = await node.rest.resolve(`ytsearch:${trackStr}`);
+          const trackObj = tracks.shift()
+          const trackStr = trackObj.trackSearch
+          const result = await node.rest.resolve(`ytsearch:${trackStr}`)
           if (
             !result ||
             result.loadType == "error" ||
             result.loadType == "empty"
           )
-            return;
-          const searchResult = result.data as Track[];
-          const track = searchResult.shift();
-          track.info.author = message.author.id;
+            return
+          const searchResult = result.data as Track[]
+          const track = searchResult.shift()
+          track.info.author = message.author.id
           var res = await client.manager.handleDispatcher({
             guildId: message.guild.id,
             guild: message.guild,
@@ -133,23 +133,23 @@ export default new PrefixCommand({
             TextChannelId: message.channel.id,
             track: track,
             member: message.member,
-          });
-          const isPlaylist = tracks.length >= 2;
+          })
+          const isPlaylist = tracks.length >= 2
           if (isPlaylist) {
-            tracks.forEach(async (trackObj) => {
-              const trackStr = trackObj.trackSearch;
+            tracks.forEach(async trackObj => {
+              const trackStr = trackObj.trackSearch
               const result = (await node.rest.resolve(
                 `ytsearch:${trackStr}`,
-              )) as LavalinkResponse | null;
+              )) as LavalinkResponse | null
               if (
                 !result ||
                 result.loadType == "error" ||
                 result.loadType == "empty"
               )
-                return;
-              const searchResult = result.data as Track[];
-              const track = searchResult.shift();
-              track.info.author = message.author.id;
+                return
+              const searchResult = result.data as Track[]
+              const track = searchResult.shift()
+              track.info.author = message.author.id
               res = await client.manager.handleDispatcher({
                 guildId: message.guild.id,
                 guild: message.guild,
@@ -157,13 +157,13 @@ export default new PrefixCommand({
                 TextChannelId: message.channel.id,
                 track: track,
                 member: message.member,
-              });
-            });
+              })
+            })
           }
 
-          res?.play();
+          res?.play()
           // get dispatcher
-          const dispatcher = await client.manager.get(message.guild.id);
+          const dispatcher = await client.manager.get(message.guild.id)
           // return error embed
           if (!res && !dispatcher.current)
             return await message.reply({
@@ -174,23 +174,23 @@ export default new PrefixCommand({
                   "Please try again",
                 ),
               ],
-            });
+            })
           // return success embed
           return await message.reply({
             embeds: [
               isPlaylist
                 ? client.util.embed(
-                  "Playlist added to queue",
-                  Colors.Green,
-                  `Added ${tracks.length} tracks to the queue (${message.member})`,
-                )
+                    "Playlist added to queue",
+                    Colors.Green,
+                    `Added ${tracks.length} tracks to the queue (${message.member})`,
+                  )
                 : trackPlayEmbed(client, message.guild.id, track),
             ],
-          });
-        });
-        return;
+          })
+        })
+        return
       }
-    } else var result = await node.rest.resolve(`ytsearch:${args.join(" ")}`);
+    } else var result = await node.rest.resolve(`ytsearch:${args.join(" ")}`)
     if (!result || result.loadType == "empty")
       return await message.reply({
         embeds: [
@@ -200,7 +200,7 @@ export default new PrefixCommand({
             "Please try again with a different query",
           ),
         ],
-      });
+      })
     if (result.loadType == "error")
       return await message.reply({
         embeds: [
@@ -210,13 +210,13 @@ export default new PrefixCommand({
             "Please try again with a different query",
           ),
         ],
-      });
-    let track;
-    if (result.loadType == "track") track = result.data;
-    else if (result.loadType == "search") track = result.data.shift();
-    else if (result.loadType == "playlist") track = result.data.tracks.shift();
-    track.info.author = message.author.id;
-    const isPlaylist = result.loadType === "playlist";
+      })
+    let track
+    if (result.loadType == "track") track = result.data
+    else if (result.loadType == "search") track = result.data.shift()
+    else if (result.loadType == "playlist") track = result.data.tracks.shift()
+    track.info.author = message.author.id
+    const isPlaylist = result.loadType === "playlist"
 
     var res = await client.manager.handleDispatcher({
       guildId: message.guild.id,
@@ -225,21 +225,21 @@ export default new PrefixCommand({
       TextChannelId: message.channel.id,
       track: track,
       member: message.member,
-    });
+    })
 
-    let playlistMessage: String;
+    let playlistMessage: String
     if (isPlaylist) {
-      const playlist = result.data as Playlist;
-      const playlistTracks: Track[] = playlist.tracks;
+      const playlist = result.data as Playlist
+      const playlistTracks: Track[] = playlist.tracks
       for (const track of playlistTracks) {
-        track.info.author = message.author.id;
+        track.info.author = message.author.id
         if (track.info.title.length > 64)
           track.info.title = `${track.info.title
             .split("[")
             .join("[")
             .split("]")
             .join("]")
-            .substr(0, 64)}…`;
+            .substr(0, 64)}…`
         res = await client.manager.handleDispatcher({
           guildId: message.guild.id,
           guild: message.guild,
@@ -247,24 +247,24 @@ export default new PrefixCommand({
           TextChannelId: message.channel.id,
           track: track,
           member: message.member,
-        });
+        })
       }
-      playlistMessage = `Added ${playlistTracks.length + 1} tracks to queue`;
+      playlistMessage = `Added ${playlistTracks.length + 1} tracks to queue`
     }
 
     await message.reply({
       embeds: [
         isPlaylist
           ? client.util.embed(
-            "Playlist added to queue",
-            Colors.Green,
-            `${playlistMessage} (${message.member})`,
-          )
+              "Playlist added to queue",
+              Colors.Green,
+              `${playlistMessage} (${message.member})`,
+            )
           : trackPlayEmbed(client, message.guild.id, track),
       ],
-    });
+    })
 
-    res?.play();
-    return;
+    res?.play()
+    return
   },
-});
+})
