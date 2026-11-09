@@ -28,6 +28,7 @@ export default new Event("messageCreate", async (message: Message) => {
         const node = client.shoukaku.options.nodeResolver(
           client.shoukaku.nodes,
         );
+        if (!node) return;
         // Get music track
         const result = (await node.rest.resolve(
           customTrack.url,

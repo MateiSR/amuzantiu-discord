@@ -44,9 +44,9 @@ export class ExtendedClient extends Client {
     })
   }
 
-  start() {
+  async start() {
     this.loadHandlers()
-    this.registerModules()
+    await this.registerModules()
     this.loadMusicManager()
     this.login(process.env.botToken)
   }

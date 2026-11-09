@@ -89,6 +89,16 @@ export default new PrefixCommand({
     // check if query is a url
     const query = args[0]
     const node = client.shoukaku.options.nodeResolver(client.shoukaku.nodes)
+    if (!node)
+      return await (message.channel as TextChannel).send({
+        embeds: [
+          client.util.embed(
+            "Music is unavailable",
+            Colors.Red,
+            "The music server is down, please try again later",
+          ),
+        ],
+      })
 
     /*
     /* removed due to redundancy

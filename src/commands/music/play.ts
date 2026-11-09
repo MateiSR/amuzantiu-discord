@@ -85,6 +85,16 @@ export default new Command({
     // check if query is a url
     const query = args.getString("query");
     const node = client.shoukaku.options.nodeResolver(client.shoukaku.nodes);
+    if (!node)
+      return await interaction.channel.send({
+        embeds: [
+          client.util.embed(
+            "Music is unavailable",
+            Colors.Red,
+            "The music server is down, please try again later",
+          ),
+        ],
+      });
 
     /*
     /* removed due to redundancy
