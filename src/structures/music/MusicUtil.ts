@@ -1,5 +1,7 @@
 const { getData, getPreview, getTracks, getDetails } =
   require("spotify-url-info")(fetch);
+import { Colors } from "discord.js";
+import { Track } from "shoukaku";
 import { client } from "../..";
 
 export default class MusicUtil {
@@ -17,6 +19,34 @@ export default class MusicUtil {
       return "http://img.youtube.com/vi/" + video + "/2.jpg";
     }
     return "http://img.youtube.com/vi/" + video + "/0.jpg";
+  };
+
+  public trackPlayEmbed = (guildId: string, track: Track) => {
+    const res = client.manager.get(guildId);
+    return client.util
+      .embed(
+        "Track added to queue",
+        Colors.Green,
+        `Added [${track.info.title}](${track.info.uri}) to the queue`,
+      )
+      .setThumbnail(this.getYouTubeThumbnail(track.info.uri, "small"))
+      .addFields(
+        {
+          name: "Duration",
+          value: client.util.formatTime(track.info.length),
+          inline: true,
+        },
+        {
+          name: "Requested by",
+          value: `<@${track.info.author}>`,
+          inline: true,
+        },
+        {
+          name: "Position in queue",
+          value: res?.queue.length.toString(),
+          inline: true,
+        },
+      );
   };
 
   public isSpotify = (url: string) => {

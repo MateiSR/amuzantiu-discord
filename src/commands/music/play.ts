@@ -13,36 +13,6 @@ const isURL = (url: string) => {
   }
 };
 
-const trackPlayEmbed = (client, guildId: string, track: Track) => {
-  const res = client.manager.get(guildId);
-  return client.util
-    .embed(
-      "Track added to queue",
-      Colors.Green,
-      `Added [${track.info.title}](${track.info.uri}) to the queue`,
-    )
-    .setThumbnail(
-      client.manager.util.getYouTubeThumbnail(track.info.uri, "small"),
-    )
-    .addFields(
-      {
-        name: "Duration",
-        value: client.util.formatTime(track.info.length),
-        inline: true,
-      },
-      {
-        name: "Requested by",
-        value: `<@${track.info.author}>`,
-        inline: true,
-      },
-      {
-        name: "Position in queue",
-        value: res?.queue.length.toString(),
-        inline: true,
-      },
-    );
-};
-
 export default new Command({
   name: "play",
   description: "Fetches and plays queried song",
@@ -190,7 +160,7 @@ export default new Command({
                   Colors.Green,
                   `Added ${tracks.length} tracks to the queue (${interaction.member})`,
                 )
-                : trackPlayEmbed(client, interaction.guild.id, track),
+                : client.manager.util.trackPlayEmbed(interaction.guild.id, track),
             ],
           });
         });
@@ -266,7 +236,7 @@ export default new Command({
             Colors.Green,
             `${playlistMessage} (${interaction.member})`,
           )
-          : trackPlayEmbed(client, interaction.guild.id, track),
+          : client.manager.util.trackPlayEmbed(interaction.guild.id, track),
       ],
     });
 
