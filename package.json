@@ -20,11 +20,9 @@
     "dotenv": "^18.0.10",
     "genius-lyrics": "^4.4.7",
     "glob": "^14.0.4",
-    "isomorphic-unfetch": "^4.0.2",
-    "node-fetch": "^3.3.2",
     "shoukaku": "4.3.0",
     "spotify-url-info": "^3.3.3",
-    "unfetch": "^5.0.0"
+    "tslib": "^2.6.3"
   },
   "devDependencies": {
     "@eslint/js": "^10",

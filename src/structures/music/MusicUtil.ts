@@ -1,4 +1,3 @@
-import fetch from "isomorphic-unfetch";
 const { getData, getPreview, getTracks, getDetails } =
   require("spotify-url-info")(fetch);
 import { client } from "../..";
