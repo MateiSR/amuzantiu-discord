@@ -1,7 +1,7 @@
 import { ColorResolvable, EmbedBuilder, Message } from "discord.js";
 import { client } from "../index";
 
-require("dotenv").config();
+require("dotenv").config({ quiet: true });
 export default class Util {
   public embed = (
     title: string,

@@ -16,7 +16,7 @@ export default class MusicDispatcher {
   current: Track = null
   previous: Track = null
   end: boolean = false
-  loop: string = "none" || "track" || "queue"
+  loop: string = "none"
 
   constructor(options: DispatcherOptions) {
     this.player = options.player

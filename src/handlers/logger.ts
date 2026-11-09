@@ -1,5 +1,5 @@
 import chalk from "chalk";
-require("dotenv").config();
+require("dotenv").config({ quiet: true });
 const currentEnv = process.env.environment || "dev";
 
 export default class Logger {

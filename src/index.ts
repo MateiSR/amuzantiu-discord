@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({ quiet: true });
 import { ExtendedClient } from "./structures/Client";
 
 export const client = new ExtendedClient();

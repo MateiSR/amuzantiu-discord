@@ -3,7 +3,7 @@ import { client } from "..";
 import { Event } from "../structures/Event";
 import { Colors } from "discord.js";
 
-require("dotenv").config();
+require("dotenv").config({ quiet: true });
 
 export default new Event("messageCreate", async (message) => {
   // If the prefix is not set in the .env file
