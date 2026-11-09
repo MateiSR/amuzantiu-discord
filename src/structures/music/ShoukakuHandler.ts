@@ -8,6 +8,8 @@ const options = {
   restTimeout: 240000,
 }
 
+const RECONNECT_DELAY = 30_000
+
 const nodes = [
   {
     name: "Music Node 1",
@@ -39,11 +41,21 @@ export default class ShoukakuHandler extends Shoukaku {
       )
     })
 
-    this.once("disconnect", (name, moved) => {
+    // Shoukaku drops a node for good once reconnectTries run out; re-add it so
+    // the bot recovers when Lavalink comes back instead of needing a restart.
+    this.on("disconnect", (name) => {
       client.logger.warn(
-        `Shoukaku Node ${name} disconnected; `,
-        moved ? "players have been moved" : "players have been disconnected",
+        `Shoukaku Node ${name} disconnected; retrying in ${RECONNECT_DELAY / 1000}s`,
       )
+      // Players died with the node; drop stale dispatchers so new plays start fresh
+      for (const guildId of client.manager.keys()) {
+        this.leaveVoiceChannel(guildId)
+        client.manager.delete(guildId)
+      }
+      setTimeout(() => {
+        if (!this.nodes.has(name))
+          this.addNode(nodes.find((node) => node.name === name))
+      }, RECONNECT_DELAY)
     })
 
     this.on("debug", (name, reason) => {
