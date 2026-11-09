@@ -1,4 +1,4 @@
-FROM node:lts-alpine AS builder
+FROM node:24-alpine AS builder
 WORKDIR /var/bot
 
 COPY package.json yarn.lock ./
@@ -9,7 +9,7 @@ COPY . .
 RUN yarn build
 
 # RUNNER
-FROM node:lts-alpine AS runner
+FROM node:24-alpine AS runner
 WORKDIR /var/bot
 
 COPY package.json yarn.lock ./
