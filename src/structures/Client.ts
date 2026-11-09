@@ -51,7 +51,7 @@ export class ExtendedClient extends Client {
     this.login(process.env.botToken)
   }
   async importFile(filePath: string) {
-    return (await import(filePath))?.default
+    return require(filePath)?.default
   }
 
   async registerCommands({ commands, guildId }: RegisterCommandsOptions) {
