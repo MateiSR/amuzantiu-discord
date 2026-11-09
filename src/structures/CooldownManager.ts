@@ -1,5 +1,5 @@
 import { Collection } from "discord.js";
-import { client } from "../..";
+import { client } from "..";
 import { ExtendedClient } from "./Client";
 
 export default class CooldownManager extends Collection<
